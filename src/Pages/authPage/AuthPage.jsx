@@ -2,9 +2,46 @@ import "./AuthPage.css";
 import logo from "../../assets/images/logo.png";
 import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
+import useSignup from "../../Hooks/useSignup";
+import useLogin from "../../Hooks/useLogin";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import useAuthContext from "../../Hooks/useAuthContext";
 
 const AuthPage = () => {
   const [isLogin,setIsLogin] = useState(true);
+  
+  const [pass,setPass] = useState();
+  const [email,setEmail] = useState();
+  const [uname,setUname] = useState();
+
+  const {signup,loading:su_loading,error:su_error} = useSignup();
+  const {login,loading:lo_loading,error:lo_error} = useLogin();
+  const {user} = useAuthContext();
+
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(user) navigate("/");
+  },[user])
+
+  const handleSubmit = (e)=>{
+
+    e.preventDefault();
+
+    if(isLogin)
+    {
+      login({pass,email});
+    }
+    else
+    {
+      signup({uname,pass,email});
+    }
+
+    e.target.reset();
+
+  }
+
   return (
     <div className="authpage">
       <div className="branding">
@@ -19,18 +56,24 @@ const AuthPage = () => {
             <h4 className="form_subtitle">
               {isLogin?`Welcome Back! Please enter your details`:`Let's get you all set up.`}
             </h4>
-            <form>
+            <form onSubmit={(e)=>{handleSubmit(e)}}>
               <p className="field_title">Email</p>
               <input
                 className="input_field"
                 type="text"
                 placeholder="Enter your email"
+                onChange={(e)=>{
+                  e.target.value.trim() !== "" && setEmail(e.target.value.trim());
+                }}
               />
               <p className="field_title">Password</p>
               <input
                 className="input_field"
                 type="password"
                 placeholder="Your Password"
+                onChange={(e)=>{
+                  e.target.value.trim() !== "" && setPass(e.target.value.trim());
+                }}
               />
               {
                 !isLogin && <>
@@ -39,9 +82,14 @@ const AuthPage = () => {
                     className="input_field"
                     type="text"
                     placeholder="Enter Username"
+                    onChange={(e)=>{
+                      e.target.value.trim() !== "" && setUname(e.target.value.trim());
+                    }}
                   />
                 </>
               }
+              {su_error && <p className="error_msg">{su_error.message}</p>}
+              {lo_error && <p className="error_msg">{lo_error.message}</p>}
               <input
                 type="submit"
                 value="Sign in"
@@ -66,6 +114,7 @@ const AuthPage = () => {
         </div>
         
       </div>
+
     </div>
   );
 };

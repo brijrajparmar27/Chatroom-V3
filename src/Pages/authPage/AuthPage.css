@@ -145,3 +145,10 @@
   box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.08);
   border-bottom-right-radius: 10px;
 }
+.authpage .authcontain .auth_form_contain .auth_form .error_msg{
+  color: red;
+  background-color: rgb(255, 210, 210);
+  font-size: 14px;
+  padding: 5px;
+  width: fit-content;
+}
