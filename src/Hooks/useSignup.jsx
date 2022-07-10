@@ -4,13 +4,14 @@ import { auth } from "../Firebase/config";
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [cancelled, isCancelled] = useState(false);
+  // const [cancelled, isCancelled] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      isCancelled(true);
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     console.log("cancelled");
+  //     isCancelled(true);
+  //   };
+  // }, []);
   
   const signup = async ({email, pass, uname}) => {
     try {
@@ -23,13 +24,18 @@ const useSignup = () => {
 
       await res.user.updateProfile({ displayName:uname });
 
-      !cancelled && setLoading(false);
-      !cancelled && setError(null);
+      // !cancelled && setLoading(false);
+      // !cancelled && setError(null);
+      setLoading(false);
+      setError(null);
       return res.user;
     } catch (e) {
-      console.log(e);
-      !cancelled && setError(e);
-      !cancelled && setLoading(false);
+      // console.log(e);
+      // !cancelled && setError(e);
+      // !cancelled && console.log("setError set");
+      // !cancelled && setLoading(false);
+      setError(e);
+      setLoading(false);
     }
   };
 

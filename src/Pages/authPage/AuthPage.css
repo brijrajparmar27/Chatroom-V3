@@ -85,6 +85,9 @@
     cursor: pointer;
 }
 .authpage .authcontain .auth_form_contain .auth_form .submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #613eb6;
     color: white;
     border: none;
