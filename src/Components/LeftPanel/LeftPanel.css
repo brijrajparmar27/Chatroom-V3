@@ -33,6 +33,14 @@
     border-radius: 10px;    
     height: 100%;
 }
+.left_panel .rooms_contain .loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+    height: 100%;
+    width: 100%;
+}
 .left_panel .rooms_contain .room_card{
     display: flex;
     align-items: center;
