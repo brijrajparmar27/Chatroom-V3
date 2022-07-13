@@ -11,12 +11,10 @@ const Header = ({ user }) => {
   const { logout } = useLogout();
   const [showPopup, setShowPopup] = useState(false);
   const [image, setImage] = useState(null);
-  const { updateProfilePic,progress } = useDP();
-
-
-  
-
-  user && user.photoURL && console.log("photo url is :- ",user.photoURL);
+  const { updateProfilePic, progress } = useDP();
+  const [url, setUrl] = useState(
+    user && user.photoURL ? user.photoURL : avatar
+  );
 
   const inputFile = useRef(null);
 
@@ -24,12 +22,17 @@ const Header = ({ user }) => {
     inputFile.current.click();
   };
 
-  const handleImageChange = (e) => {
-    if (e.target.files[0]) {
+  const onUploadComplete = (url) => {
+    setUrl(url);
+  };
 
+  const handleImageChange = async (e) => {
+    if (e.target.files[0]) {
       setImage(e.target.files[0]);
-      updateProfilePic(e.target.files[0],user);
-   }
+      updateProfilePic(e.target.files[0], user, {
+        onComplete: onUploadComplete,
+      });
+    }
   };
 
   return (
@@ -40,21 +43,24 @@ const Header = ({ user }) => {
       </div>
 
       <div className="user_profile_contain">
-        {
-          progress && <div className="progress_bar">
-            <div className="progress_completed" style={{flex:`${progress}`}}></div>
+        {progress && (
+          <div className="progress_bar">
+            <div
+              className="progress_completed"
+              style={{ flex: `${progress}` }}
+            ></div>
           </div>
-        }
+        )}
         <div className="dp_container">
-        <img
-          src={user && user.photoURL ? user.photoURL : avatar}
-          className="user_avatar"
-          onClick={() => {
-            setShowPopup((prev) => !prev);
-          }}
-        />
+          <img
+            src={url}
+            className="user_avatar"
+            onClick={() => {
+              setShowPopup((prev) => !prev);
+            }}
+          />
         </div>
-        {user && user.photoURL && console.log(user.photoURL)}
+        {/* {user && user.photoURL && console.log(user.photoURL)} */}
         <h2
           className="user_name"
           onClick={() => {

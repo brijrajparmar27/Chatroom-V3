@@ -1,13 +1,16 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import { AuthProvider } from './Context/AuthContext'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { AuthProvider } from "./Context/AuthContext";
+import { RoomProvider } from "./Context/RoomContext";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <App />
+      <RoomProvider>
+        <App />
+      </RoomProvider>
     </AuthProvider>
   </React.StrictMode>
-)
+);
