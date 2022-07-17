@@ -8,7 +8,7 @@ import Bubble from "../Bubble/Bubble";
 
 const RightPanel = () => {
   const { currentRoom } = useRoomContext();
-  const { chats, Send } = useCollection(currentRoom.roomid);
+  const { chats, Send, loading } = useCollection(currentRoom.roomid);
   const { user } = useAuthContext();
   const [textmsg, setTextmsg] = useState(false);
   const [textImg, setTextImg] = useState(false);
@@ -19,8 +19,8 @@ const RightPanel = () => {
     const dataJson = {
       timestamp: new Date(),
       uid: user.uid,
-      image: image?"url":"",
-      text: text?text:"",
+      image: image ? "url" : "",
+      text: text ? text : "",
       roomid: currentRoom.roomid,
       displayName: user.displayName,
       senderImg: user.photoURL,
@@ -50,38 +50,54 @@ const RightPanel = () => {
           <h2>{currentRoom.name}</h2>
         </div>
 
-        <div className="chats_contain scrollbar" id="style-1">
-          {chats &&
-            chats.map((each) => {
-              return <Bubble each={each} />;
-            })}
-        </div>
+        {!loading && (
+          <>
+            <div className="chats_contain scrollbar" id="style-1">
+              {chats &&
+                chats.map((each) => {
+                  return <Bubble each={each} />;
+                })}
+            </div>
 
-        <div className="input_bar_contain">
-          <div className="input_bar_box">
-            <form
-              onSubmit={(e) => {
-                handleSend(e);
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Write a message..."
-                className="msg_textbox"
-                name="msg"
-      
-              />
-              <div className="file_selector_btn">
-                <AiOutlinePaperClip
-                  style={{ fontSize: "26px" }}
-                ></AiOutlinePaperClip>
+            <div className="input_bar_contain">
+              <div className="input_bar_box">
+                <form
+                  onSubmit={(e) => {
+                    handleSend(e);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Write a message..."
+                    className="msg_textbox"
+                    name="msg"
+                  />
+                  <div className="file_selector_btn">
+                    <AiOutlinePaperClip
+                      style={{ fontSize: "26px" }}
+                    ></AiOutlinePaperClip>
+                  </div>
+                  <button type="submit" className="msg_submit_btn">
+                    <AiOutlineSend style={{ fontSize: "22px" }}></AiOutlineSend>
+                  </button>
+                </form>
               </div>
-              <button type="submit" className="msg_submit_btn">
-                <AiOutlineSend style={{ fontSize: "22px" }}></AiOutlineSend>
-              </button>
-            </form>
+            </div>
+          </>
+        )}
+
+        {loading && (
+          <div className="loader">
+            <lottie-player
+              src="https://assets9.lottiefiles.com/packages/lf20_QpolL2.json"
+              background="transparent"
+              speed="1"
+              style={{ width: "400px", height: "400px" }}
+              loop
+              autoplay
+            ></lottie-player>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

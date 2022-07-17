@@ -90,3 +90,11 @@
 	overflow-y: scroll;
 	/* margin-bottom: 25px; */
 }
+.right_panel .loader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+    height: 100%;
+    width: 100%;
+}
