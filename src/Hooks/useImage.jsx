@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { auth, storage } from "../Firebase/config";
+import { storage } from "../Firebase/config";
 
-const useDP = () => {
+const useImage = () => {
   const [progress, setProgress] = useState();
 
   useEffect(() => {
@@ -10,10 +10,16 @@ const useDP = () => {
     }
   }, [progress]);
 
-  const updateProfilePic = async (imageFile, user, { onComplete }) => {
-    console.log("update function");
+  const updateProfilePic = async (
+    imageFile,
+    user,
+    filepath,
+    filename,
+    { onComplete }
+  ) => {
+    // console.log("update function");
     const uploadTask = storage
-      .ref(`ProfilePictures/${user.uid}.png`)
+      .ref(`${filepath}/${filename}.png`)
       .put(imageFile);
     uploadTask.on(
       "state_changed",
@@ -24,8 +30,8 @@ const useDP = () => {
       (error) => console.log(error),
       () => {
         storage
-          .ref("ProfilePictures")
-          .child(`${user.uid}.png`)
+          .ref(filepath)
+          .child(`${filename}.png`)
           .getDownloadURL()
           .then((url) => {
             if (onComplete) {
@@ -38,4 +44,4 @@ const useDP = () => {
   };
   return { updateProfilePic, progress };
 };
-export default useDP;
+export default useImage;

@@ -4,14 +4,14 @@ import avatar from "../../assets/images/avatar.svg";
 import { useRef, useState } from "react";
 import "./Header.css";
 import { useEffect } from "react";
-import useDP from "../../Hooks/useDP";
+import useImage from "../../Hooks/useImage";
 import { storage } from "../../Firebase/config";
 
 const Header = ({ user }) => {
   const { logout } = useLogout();
   const [showPopup, setShowPopup] = useState(false);
   const [image, setImage] = useState(null);
-  const { updateProfilePic, progress } = useDP();
+  const { updateProfilePic, progress } = useImage();
   const [url, setUrl] = useState(
     user && user.photoURL ? user.photoURL : avatar
   );
@@ -29,7 +29,7 @@ const Header = ({ user }) => {
   const handleImageChange = async (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
-      updateProfilePic(e.target.files[0], user, {
+      updateProfilePic(e.target.files[0], user,"ProfilePictures",user.uid, {
         onComplete: onUploadComplete,
       });
     }
