@@ -8,10 +8,12 @@ const useAuthContext = ()=>{
     const {user, setUser, authIsReady, setAuthIsReady} = useContext(AuthContext);
 
     useEffect(()=>{
-        auth.onAuthStateChanged((res)=>{
+       const unSub= auth.onAuthStateChanged((res)=>{
             setUser(res);
             setAuthIsReady(true);
         })
+
+        return ()=>unSub();
     },[])
 
     return {user,setUser,authIsReady};
