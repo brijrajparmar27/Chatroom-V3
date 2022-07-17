@@ -16,7 +16,7 @@ const AuthPage = () => {
   const [uname, setUname] = useState();
   const [error,setError] = useState();
 
-  const { signup, loading: su_loading, error: su_error } = useSignup();
+  const { signup, loading: su_loading, error: su_error, signupwithgoogle } = useSignup();
   const { login, loading: lo_loading, error: lo_error } = useLogin();
   const { user } = useAuthContext();
 
@@ -112,7 +112,7 @@ const AuthPage = () => {
               >
                 {su_loading || lo_loading?<lottie-player src="https://assets4.lottiefiles.com/private_files/lf30_06kvvo5n.json"  background="transparent"  speed="1"  style={{width: "30px", height: "30px"}}  loop  autoplay></lottie-player>:isLogin ? `Sign in` : `Sign up`}
               </button>
-              <button className="form_button google_submit">
+              <button className="form_button google_submit" onClick={signupwithgoogle}>
                 <FcGoogle style={{ fontSize: "20px" }}></FcGoogle>Sign{" "}
                 {isLogin ? `in` : `up`} with Google
               </button>
