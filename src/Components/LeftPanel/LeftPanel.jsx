@@ -7,7 +7,7 @@ import useRoomContext from "../../Hooks/useRoomContext";
 const LeftPanel = () => {
   const [sort, setSort] = useState();
   const { fetchRooms, RoomsList, loading } = useDatabase({ sort });
-  const { currentRoom, setCurrentRoom } = useRoomContext();
+  const { setCurrentRoom } = useRoomContext();
 
   useEffect(() => {
     fetchRooms();

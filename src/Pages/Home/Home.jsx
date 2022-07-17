@@ -20,7 +20,7 @@ const Home = () => {
 
       <LeftPanel />
 
-      <RightPanel/>
+      <RightPanel />
     </div>
   );
 };

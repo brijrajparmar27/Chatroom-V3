@@ -56,10 +56,10 @@
     font-size: 18px;
     font-weight: 600;
 }
-.scrollbar
+.left_panel .scrollbar
 {
 	float: left;
-	background: #F5F5F5;
+	/* background: #F5F5F5; */
 	overflow-y: scroll;
 	margin-bottom: 25px;
 }
