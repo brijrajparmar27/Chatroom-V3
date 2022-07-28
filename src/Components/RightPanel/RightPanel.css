@@ -12,6 +12,7 @@
 }
 .right_panel .chat_box .chat_header{
     padding: 15px 20px;
+    text-transform: capitalize;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     -webkit-box-shadow: 0 5px 4px -6px darkgrey;
@@ -82,6 +83,9 @@
     outline: none;
     background-color: #623eb6cb;
     color: white;
+}
+.right_panel .chat_box .input_bar_contain .input_bar_box .msg_submit_btn:disabled{
+    background-color: #544b69cb;
 }
 .right_panel .scrollbar
 {
