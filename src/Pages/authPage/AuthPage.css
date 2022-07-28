@@ -155,3 +155,30 @@
   padding: 5px;
   width: fit-content;
 }
+
+/* ********************************
+******************************** */
+/* ****** Media Queries ***********/
+/* ********************************
+******************************** */
+
+
+
+@media only screen and (max-width: 1200px) {
+  .authpage .authcontain .illustration_contain{
+    display: none;
+  }
+  .authpage .authcontain .auth_form_contain{
+    border-radius: 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+
+  .authpage .authcontain{
+    width: 100%;
+  }
+  .authpage .authcontain .auth_form_contain .auth_form{
+    width: 90%;
+  }
+}

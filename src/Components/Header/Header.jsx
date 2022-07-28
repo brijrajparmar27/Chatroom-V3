@@ -29,9 +29,16 @@ const Header = ({ user }) => {
   const handleImageChange = async (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
-      updateProfilePic(e.target.files[0], user,"ProfilePictures",user.uid, {
-        onComplete: onUploadComplete,
-      });
+      updateProfilePic(
+        true,
+        e.target.files[0],
+        user,
+        "ProfilePictures",
+        user.uid,
+        {
+          onComplete: onUploadComplete,
+        }
+      );
     }
   };
 

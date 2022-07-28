@@ -15,7 +15,6 @@ const useCollection = (roomid) => {
       .onSnapshot((snapshot) => {
         let docs = [];
         snapshot.docs.forEach((each) => {
-          console.log(each.data());
           docs.push({ ...each.data(), id: each.id });
         });
         setChats(docs);

@@ -11,13 +11,14 @@ const useImage = () => {
   }, [progress]);
 
   const updateProfilePic = async (
+    isDP,
     imageFile,
     user,
     filepath,
     filename,
     { onComplete }
   ) => {
-    // console.log("update function");
+    console.log("initiate upload");
     const uploadTask = storage
       .ref(`${filepath}/${filename}.png`)
       .put(imageFile);
@@ -35,9 +36,10 @@ const useImage = () => {
           .getDownloadURL()
           .then((url) => {
             if (onComplete) {
+              console.log(url);
               onComplete(url);
             }
-            user.updateProfile({ photoURL: url });
+            isDP && user.updateProfile({ photoURL: url });
           });
       }
     );
