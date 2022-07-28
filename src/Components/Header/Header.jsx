@@ -67,7 +67,6 @@ const Header = ({ user }) => {
             }}
           />
         </div>
-        {/* {user && user.photoURL && console.log(user.photoURL)} */}
         <h2
           className="user_name"
           onClick={() => {

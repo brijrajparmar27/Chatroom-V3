@@ -4,11 +4,13 @@ import useDatabase from "../../Hooks/useDatabase";
 import { useEffect, useState } from "react";
 import useRoomContext from "../../Hooks/useRoomContext";
 import { IoIosAdd } from "react-icons/io";
+import NewRoom from "../NewRoom/NewRoom";
 
 const LeftPanel = () => {
   const [sort, setSort] = useState();
   const { fetchRooms, RoomsList, loading } = useDatabase({ sort });
   const { setCurrentRoom } = useRoomContext();
+  const [showAddRoom, setShowAddRoom] = useState(false);
 
   useEffect(() => {
     fetchRooms();
@@ -16,6 +18,7 @@ const LeftPanel = () => {
 
   return (
     <div className="left_panel">
+      {showAddRoom && <NewRoom setShowAddRoom={setShowAddRoom}/>}
       <h2>Rooms</h2>
       <div className="left_bar">
         <div className="search_contain">
@@ -28,7 +31,7 @@ const LeftPanel = () => {
             }}
           />
         </div>
-        <button className="add_room_btn">
+        <button className="add_room_btn" onClick={()=>{setShowAddRoom(true)}}>
           <IoIosAdd />
         </button>
       </div>
