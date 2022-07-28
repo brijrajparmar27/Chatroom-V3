@@ -3,6 +3,7 @@ import { BsSearch } from "react-icons/bs";
 import useDatabase from "../../Hooks/useDatabase";
 import { useEffect, useState } from "react";
 import useRoomContext from "../../Hooks/useRoomContext";
+import { IoIosAdd } from "react-icons/io";
 
 const LeftPanel = () => {
   const [sort, setSort] = useState();
@@ -16,15 +17,20 @@ const LeftPanel = () => {
   return (
     <div className="left_panel">
       <h2>Rooms</h2>
-      <div className="search_contain">
-        <BsSearch style={{ color: "grey" }}></BsSearch>
-        <input
-          type="text"
-          className="room_search_bar"
-          onChange={(e) => {
-            setSort(e.target.value.trim());
-          }}
-        />
+      <div className="left_bar">
+        <div className="search_contain">
+          <BsSearch style={{ color: "grey" }}></BsSearch>
+          <input
+            type="text"
+            className="room_search_bar"
+            onChange={(e) => {
+              setSort(e.target.value.trim());
+            }}
+          />
+        </div>
+        <button className="add_room_btn">
+          <IoIosAdd />
+        </button>
       </div>
       <div className="rooms_contain scrollbar" id="style-1">
         {!loading &&
@@ -49,12 +55,15 @@ const LeftPanel = () => {
               src="https://assets7.lottiefiles.com/private_files/lf30_fup2uejx.json"
               background="transparent"
               speed="1"
-              style={{width: "100%", height: "auto"}}
+              style={{ width: "100%", height: "auto" }}
               loop
               autoplay
             ></lottie-player>
           </div>
         )}
+        {
+          !loading && RoomsList && RoomsList.length == 0 && <div className="loader"><lottie-player src="https://assets9.lottiefiles.com/private_files/lf30_gctc76jz.json"  background="transparent"  speed="1"  style={{width: "200px", height: "200px"}}  loop  autoplay></lottie-player></div>
+        }
       </div>
     </div>
   );
