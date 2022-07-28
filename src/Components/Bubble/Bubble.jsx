@@ -37,9 +37,12 @@ const Bubble = ({ each }) => {
             {each.uid !== user.uid && (
               <p className="sender_name">{each.displayName}</p>
             )}
+            {
+              each.image !== "" && <img src={each.image} style={{borderRadius:"10px",maxWidth:"250px"}}/>
+            }
             <p>{each.text}</p>
             <p className="time">
-              {parseInt(hours) % 12}:{parseInt(mins) < 10 ? "0" + mins : mins} {hours>12?"PM":"AM"}
+              {parseInt(hours) % 12 ==0?"01":parseInt(hours) % 12 }:{parseInt(mins) < 10 ? "0" + mins : mins} {hours>12?"PM":"AM"}
             </p>
           </div>
         </div>
