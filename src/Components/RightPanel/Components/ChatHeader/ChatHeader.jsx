@@ -58,7 +58,7 @@ const ChatHeader = ({ setDetailsPopup }) => {
           >
             Details
           </p>
-          {currentRoom.creator == user.uid && (
+          {currentRoom.creatorUID == user.uid && (
             <button className="del_room_btn" onClick={handleDeleteRoom}>
               Delete
             </button>
