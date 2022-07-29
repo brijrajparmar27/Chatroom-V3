@@ -70,6 +70,9 @@
   color: white;
   border: none;
 }
+.room_submit:disabled{
+  background-color: #b697ff;
+}
 .file_pick_contain {
   /* background-color: greenyellow; */
   cursor: pointer;

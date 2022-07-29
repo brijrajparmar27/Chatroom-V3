@@ -22,10 +22,6 @@ const AuthPage = () => {
 
   const navigate = useNavigate();
 
-  su_loading || lo_loading && console.log("loading");
-  su_loading && console.log(su_loading);
-  lo_loading && console.log(lo_loading);
-
   useEffect(() => {
     if (user) {
       navigate("/");

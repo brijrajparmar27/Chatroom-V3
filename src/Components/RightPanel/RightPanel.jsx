@@ -6,9 +6,11 @@ import { useRef, useState } from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
 import Bubble from "../Bubble/Bubble";
 import useImage from "../../Hooks/useImage";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import useCreateRoom from "../../Hooks/useCreateRoom";
 
 const RightPanel = () => {
-  const { currentRoom } = useRoomContext();
+  const { currentRoom, setCurrentRoom } = useRoomContext();
   const { chats, Send, loading } = useCollection(currentRoom.roomid);
   const { updateProfilePic, progress } = useImage();
   const { user } = useAuthContext();
@@ -16,23 +18,20 @@ const RightPanel = () => {
   const [Url, setUrl] = useState();
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
+  const [popup, setPopup] = useState(false);
+  const {deleteRoom} = useCreateRoom();
 
   const onButtonClick = () => {
-    console.log("file selector opened");
     inputFile.current.click();
   };
 
   const onUploadComplete = (url) => {
-    console.log("url set");
     setUrl(url);
-    console.log("button enabled");
     setEnableSend(true);
   };
 
   const handleImageChange = async (e) => {
     if (e.target.files[0]) {
-      console.log("image selected");
-      console.log("button disabled");
       setEnableSend(false);
       let imgname = `${currentRoom.roomid}_${user.uid}_${Math.round(
         Math.random() * 100000
@@ -54,33 +53,71 @@ const RightPanel = () => {
       displayName: user.displayName,
       senderImg: user.photoURL,
     };
-    console.log(dataJson);
     return dataJson;
   };
 
   const handleSend = (e) => {
     e.preventDefault();
     if (enableSend) {
-      console.log("send button Clicked");
       const msg = e.target.msg.value;
       if (!textImg && !msg) {
         return;
       }
-
       let dataJson = createJson({ image: textImg, text: msg });
-      console.log(dataJson);
       Send(dataJson);
       e.target.reset();
-      // setTextmsg(false);
       setTextImg(false);
     }
+  };
+
+  const handleDeleteRoom = () => {
+
+    setPopup(false);
+
+    deleteRoom();
+
+    setCurrentRoom({
+      name: "General",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/chatroom-b93bf.appspot.com/o/RoomImages%2F7XguRtYdQtVWmjph8Gf4.jpg?alt=media&token=6408a3db-f673-4ba0-a141-bfe93ad87e87",
+      roomid: "7XguRtYdQtVWmjph8Gf4",
+    });
   };
 
   return (
     <div className="right_panel">
       <div className="chat_box">
         <div className="chat_header">
-          <h2>{currentRoom.name}</h2>
+          <div className="header_left">
+            <img src={currentRoom.image} className="room_avatar" />
+            <h2>{currentRoom.name}</h2>
+          </div>
+          {popup && (
+            <div
+              className="backdrop"
+              onClick={() => {
+                setPopup(false);
+              }}
+            ></div>
+          )}
+          <div
+            className="room_options"
+            onClick={() => {
+              setPopup((prev) => !prev);
+            }}
+          >
+            <BsThreeDotsVertical />
+          </div>
+          {popup && (
+            <div className="room_menu">
+              <p className="popup_option">Details</p>
+              {currentRoom.creator == user.uid && (
+                <button className="del_room_btn" onClick={handleDeleteRoom}>
+                  Delete
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
         {!loading && (
@@ -97,7 +134,7 @@ const RightPanel = () => {
                     src="https://assets1.lottiefiles.com/packages/lf20_ydo1amjm.json"
                     background="transparent"
                     speed="1"
-                    style={{ width: "50%"}}
+                    style={{ width: "50%" }}
                     loop
                     autoplay
                   ></lottie-player>

@@ -1,5 +1,5 @@
 .left_panel {
-  padding: 0px 30px;
+  padding-left: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -80,7 +80,7 @@
   float: left;
   /* background: #F5F5F5; */
   overflow-y: scroll;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 #style-1::-webkit-scrollbar-track {
   background-color: transparent;

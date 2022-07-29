@@ -18,7 +18,6 @@ const useImage = () => {
     filename,
     { onComplete }
   ) => {
-    console.log("initiate upload");
     const uploadTask = storage
       .ref(`${filepath}/${filename}.png`)
       .put(imageFile);
@@ -36,7 +35,6 @@ const useImage = () => {
           .getDownloadURL()
           .then((url) => {
             if (onComplete) {
-              console.log(url);
               onComplete(url);
             }
             isDP && user.updateProfile({ photoURL: url });

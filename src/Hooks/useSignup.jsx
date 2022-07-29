@@ -30,7 +30,6 @@ const useSignup = () => {
       auth
         .signInWithPopup(googleProvider)
         .then((res) => {
-          console.log(res.user);
           setUser(res.user);
         })
         .catch((err) => {

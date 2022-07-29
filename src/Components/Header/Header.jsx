@@ -44,12 +44,14 @@ const Header = ({ user }) => {
 
   return (
     <div className="header">
+
       <div className="branding">
         <img src={logo} alt="" />
         <h1>Chatroom</h1>
       </div>
 
       <div className="user_profile_contain">
+      
         {progress && (
           <div className="progress_bar">
             <div
@@ -58,6 +60,7 @@ const Header = ({ user }) => {
             ></div>
           </div>
         )}
+
         <div className="dp_container">
           <img
             src={url}
@@ -67,6 +70,7 @@ const Header = ({ user }) => {
             }}
           />
         </div>
+
         <h2
           className="user_name"
           onClick={() => {
@@ -75,6 +79,7 @@ const Header = ({ user }) => {
         >
           {user && user.displayName}
         </h2>
+
         {showPopup && (
           <div
             className="backdrop"
@@ -83,6 +88,7 @@ const Header = ({ user }) => {
             }}
           ></div>
         )}
+        
         {showPopup && (
           <div className="popup">
             <p className="popup_option" onClick={onButtonClick}>

@@ -1,5 +1,5 @@
 import "./NewRoom.css";
-import { BsFillCloudUploadFill } from "react-icons/bs";
+import { BsFillCloudUploadFill, BsFillImageFill } from "react-icons/bs";
 import { useRef, useState } from "react";
 import useImage from "../../Hooks/useImage";
 import useAuthContext from "../../Hooks/useAuthContext";
@@ -35,7 +35,7 @@ const NewRoom = ({ setShowAddRoom }) => {
     try {
       if (roomDpUrl) {
         if (roomName) {
-          createRoom({ name: roomName, image: roomDpUrl });
+          createRoom({ name: roomName, image: roomDpUrl, creator: user.uid });
           setRoomName(null);
           setRoomDpUrl(null);
           setError(null);
@@ -66,7 +66,7 @@ const NewRoom = ({ setShowAddRoom }) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
       updateProfilePic(
-        true,
+        false,
         e.target.files[0],
         user,
         "RoomImages",
@@ -84,16 +84,8 @@ const NewRoom = ({ setShowAddRoom }) => {
       onClick={() => {
         if (roomDpUrl) {
           var fileRef = storage.refFromURL(roomDpUrl);
-          fileRef
-            .delete()
-            .then(function () {
-              console.log("File Deleted");
-            })
-            .catch(function (error) {
-              console.log(error.message);
-            });
+          fileRef.delete();
         }
-
         setShowAddRoom(false);
       }}
     >
@@ -137,7 +129,8 @@ const NewRoom = ({ setShowAddRoom }) => {
               onChange={handleImageChange}
             />
             <div className="file_pick_contain" onClick={onButtonClick}>
-              <BsFillCloudUploadFill />
+              {!roomDpUrl && <BsFillCloudUploadFill />}
+              {roomDpUrl && <BsFillImageFill />}
               {progress && (
                 <div className="progress_bar">
                   <div
@@ -148,7 +141,12 @@ const NewRoom = ({ setShowAddRoom }) => {
               )}
             </div>
             {error && <p className="error_msg">{error.message}</p>}
-            <button className="room_submit">Create</button>
+            <button
+              className="room_submit"
+              disabled={!roomDpUrl ? true : false}
+            >
+              Create
+            </button>
           </form>
         </div>
       </div>

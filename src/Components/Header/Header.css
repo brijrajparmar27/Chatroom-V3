@@ -61,8 +61,8 @@
 }
 .home .header .user_profile_contain .popup {
   background-color: white;
-  position: fixed;
-  top: 110px;
+  position: absolute;
+  top: 50px;
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -88,6 +88,7 @@
 }
 .home .header .user_profile_contain .backdrop {
   position: fixed;
+  z-index: 90;
   top: 0;
   left: 0;
   height: 100vh;
