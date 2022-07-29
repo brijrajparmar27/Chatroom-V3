@@ -5,7 +5,7 @@ import useAuthContext from "../../../../Hooks/useAuthContext";
 import useCreateRoom from "../../../../Hooks/useCreateRoom";
 import useRoomContext from "../../../../Hooks/useRoomContext";
 
-const ChatHeader = () => {
+const ChatHeader = ({ setDetailsPopup }) => {
   const [popup, setPopup] = useState(false);
   const { deleteRoom } = useCreateRoom();
   const { currentRoom, setCurrentRoom } = useRoomContext();
@@ -13,9 +13,7 @@ const ChatHeader = () => {
 
   const handleDeleteRoom = () => {
     setPopup(false);
-
     deleteRoom();
-
     setCurrentRoom({
       name: "General",
       image:
@@ -30,6 +28,7 @@ const ChatHeader = () => {
         <img src={currentRoom.image} className="room_avatar" />
         <h2>{currentRoom.name}</h2>
       </div>
+
       {popup && (
         <div
           className="backdrop"
@@ -38,6 +37,7 @@ const ChatHeader = () => {
           }}
         ></div>
       )}
+
       <div
         className="room_options"
         onClick={() => {
@@ -46,9 +46,18 @@ const ChatHeader = () => {
       >
         <BsThreeDotsVertical />
       </div>
+
       {popup && (
         <div className="room_menu">
-          <p className="popup_option">Details</p>
+          <p
+            className="popup_option"
+            onClick={() => {
+              setDetailsPopup(true);
+              setPopup(false);
+            }}
+          >
+            Details
+          </p>
           {currentRoom.creator == user.uid && (
             <button className="del_room_btn" onClick={handleDeleteRoom}>
               Delete

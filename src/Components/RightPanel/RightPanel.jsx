@@ -7,6 +7,11 @@ import useAuthContext from "../../Hooks/useAuthContext";
 import Bubble from "../Bubble/Bubble";
 import useImage from "../../Hooks/useImage";
 import ChatHeader from "./Components/ChatHeader/ChatHeader";
+import { SiGodotengine } from "react-icons/si";
+import { IoMdClose } from "react-icons/io";
+
+import firebase from "firebase";
+import "firebase/firestore";
 
 const RightPanel = () => {
   const { currentRoom } = useRoomContext();
@@ -17,6 +22,7 @@ const RightPanel = () => {
   const [Url, setUrl] = useState();
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
+  const [detailsPopup,setDetailsPopup] = useState(false);
 
   const onButtonClick = () => {
     inputFile.current.click();
@@ -70,7 +76,27 @@ const RightPanel = () => {
   return (
     <div className="right_panel">
       <div className="chat_box">
-        <ChatHeader />
+        
+        {detailsPopup && <div className="room_details_contain">
+          <div className="top_avatar_contain">
+            <div className="close_details_page" onClick={()=>{setDetailsPopup(false)}}>
+              <IoMdClose/>
+            </div>
+            <img src={currentRoom.image} className="top_avatar" />
+          </div>
+          <div className="details_content_contain">
+            <h2 className="room_name">{currentRoom.name}</h2>
+            <p>Created by</p>
+            {!currentRoom.creatorName && <SiGodotengine style={{fontSize:"40px",color:"grey"}}/>}
+            {currentRoom.creatorName && <div className="created_by">
+              <img src={currentRoom.creatorImg} className="creator_img" />
+              <p className="creator_name">{currentRoom.creatorName}</p>
+            </div>}
+
+          </div>
+        </div>}
+
+        <ChatHeader setDetailsPopup={setDetailsPopup}/>
 
         {!loading && (
           <>

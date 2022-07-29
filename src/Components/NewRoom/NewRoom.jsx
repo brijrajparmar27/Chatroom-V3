@@ -35,7 +35,14 @@ const NewRoom = ({ setShowAddRoom }) => {
     try {
       if (roomDpUrl) {
         if (roomName) {
-          createRoom({ name: roomName, image: roomDpUrl, creator: user.uid });
+          createRoom({
+            name: roomName,
+            image: roomDpUrl,
+            creatorUID: user.uid,
+            creatorImg: user.photoURL,
+            creatorName: user.displayName,
+            createdAt: new Date(),
+          });
           setRoomName(null);
           setRoomDpUrl(null);
           setError(null);

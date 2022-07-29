@@ -55,6 +55,9 @@
     color: white;
     cursor: pointer;
 }
+.popup_option{
+    cursor: pointer;
+}
 .right_panel .chat_box .chat_header .room_avatar{
     height: 30px;
     border-radius: 50%;
