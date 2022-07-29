@@ -54,7 +54,6 @@ const NewRoom = ({ setShowAddRoom }) => {
     catch(e)
     {
       setError(e)
-      // console.log(e.message);
     }
   };
 
@@ -65,7 +64,6 @@ const NewRoom = ({ setShowAddRoom }) => {
   };
 
   const onUploadComplete = (url) => {
-    // setUrl(url);
     setRoomDpUrl(url);
     console.log("dp set");
   };
