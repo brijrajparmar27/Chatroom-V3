@@ -27,7 +27,6 @@ const RightPanel = () => {
     setUrl(url);
     console.log("button enabled");
     setEnableSend(true);
-    // setTextImg(null);
   };
 
   const handleImageChange = async (e) => {

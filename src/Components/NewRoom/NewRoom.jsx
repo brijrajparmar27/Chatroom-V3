@@ -4,15 +4,16 @@ import { useRef, useState } from "react";
 import useImage from "../../Hooks/useImage";
 import useAuthContext from "../../Hooks/useAuthContext";
 import useCreateRoom from "../../Hooks/useCreateRoom";
+import { storage } from "../../Firebase/config";
 
 const NewRoom = ({ setShowAddRoom }) => {
-  const {createRoom} = useCreateRoom();
+  const { createRoom } = useCreateRoom();
   const [roomName, setRoomName] = useState();
   const [image, setImage] = useState(null);
   const { updateProfilePic, progress } = useImage();
-  const [roomDpUrl,setRoomDpUrl] = useState();
+  const [roomDpUrl, setRoomDpUrl] = useState();
   const { user } = useAuthContext();
-  const [error,setError] = useState(null);
+  const [error, setError] = useState(null);
 
   function generateUniqueName() {
     var result = "";
@@ -22,7 +23,7 @@ const NewRoom = ({ setShowAddRoom }) => {
     for (var i = 0; i < 20; i++) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    return "result";
+    return result;
   }
 
   const handlePropagation = (e) => {
@@ -31,29 +32,23 @@ const NewRoom = ({ setShowAddRoom }) => {
 
   const handleRoomSubmit = (e) => {
     e.preventDefault();
-    try{
-      if(roomDpUrl)
-      {
-        if(roomName)
-        {
-          createRoom({name:roomName,image:roomDpUrl})
+    try {
+      if (roomDpUrl) {
+        if (roomName) {
+          createRoom({ name: roomName, image: roomDpUrl });
           setRoomName(null);
           setRoomDpUrl(null);
           setError(null);
           e.target.reset();
           setShowAddRoom(false);
-        }
-        else{
+        } else {
           throw new Error("Enter a Room Name");
         }
-      }
-      else{
+      } else {
         throw new Error("Select an Image for Room");
       }
-    }
-    catch(e)
-    {
-      setError(e)
+    } catch (e) {
+      setError(e);
     }
   };
 
@@ -65,7 +60,6 @@ const NewRoom = ({ setShowAddRoom }) => {
 
   const onUploadComplete = (url) => {
     setRoomDpUrl(url);
-    console.log("dp set");
   };
 
   const handleImageChange = async (e) => {
@@ -88,6 +82,18 @@ const NewRoom = ({ setShowAddRoom }) => {
     <div
       className="NewRoom"
       onClick={() => {
+        if (roomDpUrl) {
+          var fileRef = storage.refFromURL(roomDpUrl);
+          fileRef
+            .delete()
+            .then(function () {
+              console.log("File Deleted");
+            })
+            .catch(function (error) {
+              console.log(error.message);
+            });
+        }
+
         setShowAddRoom(false);
       }}
     >
