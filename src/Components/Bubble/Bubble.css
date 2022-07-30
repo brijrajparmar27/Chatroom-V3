@@ -36,6 +36,7 @@
 }
 .chats_contain .msg_contain .dp_contain .chat_msg_dp{
     width: 35px;
+    background-color: #f5f5f5;
 }
 .left{
     justify-content: flex-start;

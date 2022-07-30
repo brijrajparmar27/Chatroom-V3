@@ -2,6 +2,7 @@ import useAuthContext from "../../Hooks/useAuthContext";
 import "./Bubble.css";
 import firebase from "firebase";
 import "firebase/firestore";
+import dpplaceholder from "../../assets/images/avatar.svg";
 
 const Bubble = ({ each }) => {
 
@@ -30,7 +31,7 @@ const Bubble = ({ each }) => {
         >
           {each.uid !== user.uid && (
             <div className="dp_contain">
-              <img src={each.senderImg} className="chat_msg_dp" />
+              <img src={each.senderImg?each.senderImg:dpplaceholder} className="chat_msg_dp" />
             </div>
           )}
           <div className="msg">
