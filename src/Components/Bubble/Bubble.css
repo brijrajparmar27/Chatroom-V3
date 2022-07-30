@@ -6,7 +6,10 @@
     /* margin: 10px 0px; */
 }
 .chats_contain .msg_contain .msg{
-
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 150px;
     /* background-color: #05b3ec; */
     max-width: 350px;
     overflow-wrap: break-word;
@@ -18,11 +21,12 @@
 }
 .chats_contain .msg_contain .msg .time{
     /* background-color: blanchedalmond; */
+
     text-align: right;
-    font-size: 12px;
-    margin-top: 5px;
+    font-size: 10px;
+    margin-top: -5px;
     /* color: gray; */
-    font-style: italic;
+    /* font-style: italic; */
 }
 .chats_contain .msg_contain .dp_contain{
     /* background-color: aqua; */
