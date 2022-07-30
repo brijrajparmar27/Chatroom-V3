@@ -5,20 +5,22 @@ import { useEffect, useState } from "react";
 import useRoomContext from "../../Hooks/useRoomContext";
 import { IoIosAdd } from "react-icons/io";
 import NewRoom from "../NewRoom/NewRoom";
+import useScreenContext from "../../Hooks/useScreenContest";
 
-const LeftPanel = () => {
+const LeftPanel = ({setShowChat,showChat}) => {
   const [sort, setSort] = useState();
   const { fetchRooms, RoomsList, loading } = useDatabase({ sort });
   const { setCurrentRoom } = useRoomContext();
   const [showAddRoom, setShowAddRoom] = useState(false);
+  const { size } = useScreenContext();
 
   useEffect(() => {
     fetchRooms();
   }, []);
 
   return (
-    <div className="left_panel">
-      {showAddRoom && <NewRoom setShowAddRoom={setShowAddRoom}/>}
+    <div className={showChat?"left_panel hide":"left_panel"}>
+      {showAddRoom && <NewRoom setShowAddRoom={setShowAddRoom} />}
       <h2>Rooms</h2>
       <div className="left_bar">
         <div className="search_contain">
@@ -31,7 +33,12 @@ const LeftPanel = () => {
             }}
           />
         </div>
-        <button className="add_room_btn" onClick={()=>{setShowAddRoom(true)}}>
+        <button
+          className="add_room_btn"
+          onClick={() => {
+            setShowAddRoom(true);
+          }}
+        >
           <IoIosAdd />
         </button>
       </div>
@@ -45,6 +52,9 @@ const LeftPanel = () => {
                 key={each.roomid}
                 onClick={() => {
                   setCurrentRoom(each);
+                  if (size[1] < 750) {
+                    setShowChat(true);
+                  }
                 }}
               >
                 <img src={each.image} className="room_icon" />
@@ -64,9 +74,18 @@ const LeftPanel = () => {
             ></lottie-player>
           </div>
         )}
-        {
-          !loading && RoomsList && RoomsList.length == 0 && <div className="loader"><lottie-player src="https://assets9.lottiefiles.com/private_files/lf30_gctc76jz.json"  background="transparent"  speed="1"  style={{width: "200px", height: "200px"}}  loop  autoplay></lottie-player></div>
-        }
+        {!loading && RoomsList && RoomsList.length == 0 && (
+          <div className="loader">
+            <lottie-player
+              src="https://assets9.lottiefiles.com/private_files/lf30_gctc76jz.json"
+              background="transparent"
+              speed="1"
+              style={{ width: "200px", height: "200px" }}
+              loop
+              autoplay
+            ></lottie-player>
+          </div>
+        )}
       </div>
     </div>
   );

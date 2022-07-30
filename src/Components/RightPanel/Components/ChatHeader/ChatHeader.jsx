@@ -4,8 +4,9 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import useAuthContext from "../../../../Hooks/useAuthContext";
 import useCreateRoom from "../../../../Hooks/useCreateRoom";
 import useRoomContext from "../../../../Hooks/useRoomContext";
+import { BiArrowBack } from "react-icons/bi";
 
-const ChatHeader = ({ setDetailsPopup }) => {
+const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
   const [popup, setPopup] = useState(false);
   const { deleteRoom } = useCreateRoom();
   const { currentRoom, setCurrentRoom } = useRoomContext();
@@ -22,9 +23,16 @@ const ChatHeader = ({ setDetailsPopup }) => {
     });
   };
 
+  const handlePop = ()=>{
+    setShowChat(false);
+  }
+
   return (
     <div className="chat_header">
       <div className="header_left">
+        <div className="back" onClick={handlePop}>
+          <BiArrowBack />
+        </div>
         <img src={currentRoom.image} className="room_avatar" />
         <h2>{currentRoom.name}</h2>
       </div>

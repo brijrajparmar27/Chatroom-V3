@@ -89,12 +89,6 @@
 #style-1::-webkit-scrollbar {
   width: 3px;
 }
-
-/* #style-1:hover::-webkit-scrollbar
-{
-	width: 5px;
-} */
-
 #style-1::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgb(29, 29, 29);
@@ -114,22 +108,26 @@
 }
 
 @media only screen and (max-width: 750px) {
-    .home .header .branding h1{
-        display: none;
-    }
-    .home .right_panel{
-        display: none;
-    }
-    .home{
-        grid-template-rows: 1fr;
-        grid-template-columns: 1fr;
-        grid-gap: 0px;
-    }
-    .header{
-        height: 80px;
-    }
-    .left_panel
-    {
-        padding: 0px 10px;
-    }
+  .home .header .branding h1 {
+    display: none;
+  }
+  .hide {
+    display: none;
+  }
+  .home {
+    display: flex;
+    flex-direction: column;
+  }
+  .header {
+    padding: 10px 15px !important;
+  }
+  .left_panel {
+    padding: 0px 10px;
+  }
+  .right_panel{
+    padding: 0px 10px !important;
+  }
+  .right_panel .chat_box .chat_header .header_left .back{
+    display: flex !important;
+  }
 }

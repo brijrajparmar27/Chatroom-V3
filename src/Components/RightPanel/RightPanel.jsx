@@ -12,8 +12,9 @@ import { IoMdClose } from "react-icons/io";
 
 import firebase from "firebase";
 import "firebase/firestore";
+import useScreenContext from "../../Hooks/useScreenContest";
 
-const RightPanel = () => {
+const RightPanel = ({setShowChat,showChat}) => {
   const { currentRoom } = useRoomContext();
   const { chats, Send, loading } = useCollection(currentRoom.roomid);
   const { updateProfilePic, progress } = useImage();
@@ -23,6 +24,7 @@ const RightPanel = () => {
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
   const [detailsPopup,setDetailsPopup] = useState(false);
+  const {size} = useScreenContext();
 
   const onButtonClick = () => {
     inputFile.current.click();
@@ -74,7 +76,7 @@ const RightPanel = () => {
   };
 
   return (
-    <div className="right_panel">
+    <div className={showChat?"right_panel":"right_panel hide"}>
       <div className="chat_box">
         
         {detailsPopup && <div className="room_details_contain">
@@ -96,7 +98,7 @@ const RightPanel = () => {
           </div>
         </div>}
 
-        <ChatHeader setDetailsPopup={setDetailsPopup}/>
+        <ChatHeader setDetailsPopup={setDetailsPopup} setShowChat={setShowChat}/>
 
         {!loading && (
           <>
