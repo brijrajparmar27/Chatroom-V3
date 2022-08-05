@@ -14,7 +14,7 @@ const useCreateRoom = () => {
     }
   };
 
-  const deleteRoom = () => {
+  const clearRoom = ()=>{
     var chat_del_query = firestore
       .collection("chats")
       .where("roomid", "==", currentRoom.roomid);
@@ -23,16 +23,25 @@ const useCreateRoom = () => {
         doc.ref.delete();
       });
     });
+  }
 
+  const clearRoomDP = ()=>{
     var fileRef = storage.refFromURL(currentRoom.image);
     fileRef.delete();
+  }
+
+  const deleteRoom = () => {
+
+    clearRoom()
+    clearRoomDP();
 
     var room_del_query = firestore
       .collection("rooms")
       .doc(currentRoom.roomid)
       .delete();
+
   };
 
-  return { createRoom, deleteRoom };
+  return { createRoom, deleteRoom, clearRoom, clearRoomDP };
 };
 export default useCreateRoom;

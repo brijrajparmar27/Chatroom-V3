@@ -15,6 +15,7 @@
 .home .left_panel {
   grid-area: chat_options;
 }
+
 .home .right_panel {
   grid-area: chat_section;
 }

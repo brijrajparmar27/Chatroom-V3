@@ -1,15 +1,18 @@
-import { useEffect ,useState} from "react";
+import { useEffect, useState } from "react";
 import { firestore } from "../Firebase/config";
+import useRoomContext from "./useRoomContext";
 
 const useDatabase = ({ sort }) => {
   const [RoomsList, setRoomsList] = useState();
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { notifications } = useRoomContext();
+
   useEffect(() => {
     if (sort) {
       var dataArray = [];
       setLoading(true);
       firestore
-        .collection("rooms").where("name",">=",sort).where("name","<=",sort+"\uf8ff")
+        .collection("rooms").where("name", ">=", sort).where("name", "<=", sort + "\uf8ff")
         .get()
         .then((snapshot) => {
           dataArray = [];
@@ -19,14 +22,14 @@ const useDatabase = ({ sort }) => {
           setRoomsList(dataArray);
           setLoading(false);
         });
-    }else{ 
+    } else {
       fetchRooms();
     }
 
   }, [sort]);
 
   const fetchRooms = () => {
- 
+
     let dataArray = [];
     setLoading(true);
     firestore
@@ -35,15 +38,15 @@ const useDatabase = ({ sort }) => {
       .then((snapshot) => {
         dataArray = [];
         snapshot.forEach((datum) => {
-          dataArray.push({ ...datum.data(), roomid: datum.id });
+          dataArray.push({ ...datum.data(), roomid: datum.id, priority: notifications.includes(datum.id) ? 1 : 0 });
         });
-        setRoomsList(dataArray);
+        setRoomsList(dataArray.sort((a, b) => b.priority - a.priority));
         setLoading(false);
       });
 
   };
 
-  return { fetchRooms ,RoomsList, loading};
+  return { fetchRooms, RoomsList, loading };
 };
 
 export default useDatabase;

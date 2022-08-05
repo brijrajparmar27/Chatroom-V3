@@ -66,6 +66,14 @@
   gap: 20px;
   cursor: pointer;
 }
+.left_panel .rooms_contain .room_card .notif_dot
+{
+  height: 8px;
+  width: 8px;
+  background-color: rgb(0, 255, 85);
+  box-shadow: 0px 0px 3px 1px rgba(43, 255, 0, 0.281);
+  border-radius: 50%;
+}
 .left_panel .rooms_contain .room_card .room_icon {
   height: 50px;
   width: 50px;

@@ -10,7 +10,7 @@ import useScreenContext from "../../Hooks/useScreenContest";
 const LeftPanel = ({setShowChat,showChat}) => {
   const [sort, setSort] = useState();
   const { fetchRooms, RoomsList, loading } = useDatabase({ sort });
-  const { setCurrentRoom } = useRoomContext();
+  const { setCurrentRoom, notifications } = useRoomContext();
   const [showAddRoom, setShowAddRoom] = useState(false);
   const { size } = useScreenContext();
 
@@ -59,6 +59,9 @@ const LeftPanel = ({setShowChat,showChat}) => {
               >
                 <img src={each.image} className="room_icon" />
                 <h3 className="room_title">{each.name}</h3>
+                {
+                  notifications.includes(each.roomid) && <div className="notif_dot"></div>
+                }
               </div>
             );
           })}

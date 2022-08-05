@@ -14,7 +14,7 @@ const AuthPage = () => {
   const [pass, setPass] = useState();
   const [email, setEmail] = useState();
   const [uname, setUname] = useState();
-  const [error,setError] = useState();
+  const [error, setError] = useState();
 
   const { signup, loading: su_loading, error: su_error, signupwithgoogle } = useSignup();
   const { login, loading: lo_loading, error: lo_error } = useLogin();
@@ -26,12 +26,11 @@ const AuthPage = () => {
     if (user) {
       navigate("/");
     }
-    else
-    {
-      if(su_error) setError(su_error);
-      if(lo_error) setError(lo_error);
+    else {
+      if (su_error) setError(su_error);
+      if (lo_error) setError(lo_error);
     }
-  }, [user,su_error,lo_error]);
+  }, [user, su_error, lo_error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -103,10 +102,10 @@ const AuthPage = () => {
               {error && <p className="error_msg">{error.message}</p>}
               <button
                 type="submit"
-                
+
                 className="form_button submit"
               >
-                {su_loading || lo_loading?<lottie-player src="https://assets4.lottiefiles.com/private_files/lf30_06kvvo5n.json"  background="transparent"  speed="1"  style={{width: "30px", height: "30px"}}  loop  autoplay></lottie-player>:isLogin ? `Sign in` : `Sign up`}
+                {su_loading || lo_loading ? <lottie-player src="https://assets4.lottiefiles.com/private_files/lf30_06kvvo5n.json" background="transparent" speed="1" style={{ width: "30px", height: "30px" }} loop autoplay></lottie-player> : isLogin ? `Sign in` : `Sign up`}
               </button>
               <button className="form_button google_submit" onClick={signupwithgoogle}>
                 <FcGoogle style={{ fontSize: "20px" }}></FcGoogle>Sign{" "}

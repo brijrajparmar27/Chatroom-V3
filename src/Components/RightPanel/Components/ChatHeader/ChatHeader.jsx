@@ -8,9 +8,10 @@ import { BiArrowBack } from "react-icons/bi";
 
 const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
   const [popup, setPopup] = useState(false);
-  const { deleteRoom } = useCreateRoom();
+  const { deleteRoom, clearRoom } = useCreateRoom();
   const { currentRoom, setCurrentRoom } = useRoomContext();
   const { user } = useAuthContext();
+  const adminUID = "0t7KbQsKGPMab0VCB61uvs2LjT82";
 
   const handleDeleteRoom = () => {
     setPopup(false);
@@ -66,7 +67,16 @@ const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
           >
             Details
           </p>
-          {currentRoom.creatorUID == user.uid && (
+          <p
+            className="popup_option"
+            onClick={() => {
+              clearRoom();
+              setPopup(false);
+            }}
+          >
+            Clear Chat
+          </p>
+          {(currentRoom.creatorUID == user.uid || user.uid == adminUID) && (
             <button className="del_room_btn" onClick={handleDeleteRoom}>
               Delete
             </button>

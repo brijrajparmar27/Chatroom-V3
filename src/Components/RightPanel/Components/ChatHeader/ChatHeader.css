@@ -67,4 +67,6 @@
 .right_panel .chat_box .chat_header .room_avatar{
     height: 30px;
     border-radius: 50%;
+    object-fit: cover;
+    width: 30px;
 }

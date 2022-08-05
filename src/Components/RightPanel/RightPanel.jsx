@@ -9,8 +9,6 @@ import useImage from "../../Hooks/useImage";
 import ChatHeader from "./Components/ChatHeader/ChatHeader";
 import { SiGodotengine } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
-
-import firebase from "firebase";
 import "firebase/firestore";
 import useScreenContext from "../../Hooks/useScreenContest";
 
