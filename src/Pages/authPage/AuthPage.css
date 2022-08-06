@@ -187,6 +187,20 @@
 
 
 @media only screen and (max-width: 1200px) {
+  
+  .authpage .branding{
+    top: 20px;
+    left: 20px;
+  }
+  .authpage .authcontain .auth_form_contain .auth_form{
+    padding: 20px 20px;
+  }
+  .authpage .authcontain{
+    height: fit-content;
+  }
+}
+
+@media only screen and (max-width: 900px) {
   .authpage .authcontain .illustration_contain {
     display: none;
   }
@@ -194,15 +208,7 @@
   .authpage .authcontain .auth_form_contain {
     border-radius: 10px;
   }
-}
-
-@media only screen and (max-width: 600px) {
-
-  .authpage .authcontain {
-    width: 100%;
-  }
-
-  .authpage .authcontain .auth_form_contain .auth_form {
-    width: 90%;
+  .authpage .authcontain{
+    width: fit-content;
   }
 }

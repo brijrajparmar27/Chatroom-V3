@@ -12,7 +12,7 @@ import { IoMdClose } from "react-icons/io";
 import "firebase/firestore";
 import useScreenContext from "../../Hooks/useScreenContest";
 
-const RightPanel = ({setShowChat,showChat}) => {
+const RightPanel = ({ setShowChat, showChat }) => {
   const { currentRoom } = useRoomContext();
   const { chats, Send, loading } = useCollection(currentRoom.roomid);
   const { updateProfilePic, progress } = useImage();
@@ -21,8 +21,8 @@ const RightPanel = ({setShowChat,showChat}) => {
   const [Url, setUrl] = useState();
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
-  const [detailsPopup,setDetailsPopup] = useState(false);
-  const {size} = useScreenContext();
+  const [detailsPopup, setDetailsPopup] = useState(false);
+  const { size } = useScreenContext();
 
   const onButtonClick = () => {
     inputFile.current.click();
@@ -74,20 +74,20 @@ const RightPanel = ({setShowChat,showChat}) => {
   };
 
   return (
-    <div className={showChat?"right_panel":"right_panel hide"}>
+    <div className={showChat ? "right_panel" : "right_panel hide"}>
       <div className="chat_box">
-        
+
         {detailsPopup && <div className="room_details_contain">
           <div className="top_avatar_contain">
-            <div className="close_details_page" onClick={()=>{setDetailsPopup(false)}}>
-              <IoMdClose/>
+            <div className="close_details_page" onClick={() => { setDetailsPopup(false) }}>
+              <IoMdClose />
             </div>
             <img src={currentRoom.image} className="top_avatar" />
           </div>
           <div className="details_content_contain">
             <h2 className="room_name">{currentRoom.name}</h2>
             <p>Created by</p>
-            {!currentRoom.creatorName && <SiGodotengine style={{fontSize:"40px",color:"grey"}}/>}
+            {!currentRoom.creatorName && <SiGodotengine style={{ fontSize: "40px", color: "grey" }} />}
             {currentRoom.creatorName && <div className="created_by">
               <img src={currentRoom.creatorImg} className="creator_img" />
               <p className="creator_name">{currentRoom.creatorName}</p>
@@ -96,7 +96,7 @@ const RightPanel = ({setShowChat,showChat}) => {
           </div>
         </div>}
 
-        <ChatHeader setDetailsPopup={setDetailsPopup} setShowChat={setShowChat}/>
+        <ChatHeader setDetailsPopup={setDetailsPopup} setShowChat={setShowChat} />
 
         {!loading && (
           <>
