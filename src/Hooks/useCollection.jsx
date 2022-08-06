@@ -14,9 +14,11 @@ const useCollection = (roomid) => {
 
   useEffect(() => {
     setLoading(true);
-    let doc = { uid: user.uid };
-    doc[currentRoom.roomid] = new Date();
-    setLastOpen(doc,true);
+    if (user) {
+      let doc = { uid: user.uid };
+      doc[currentRoom.roomid] = new Date();
+      setLastOpen(doc, true);
+    }
 
     const unsub = firestore
       .collection("chats")

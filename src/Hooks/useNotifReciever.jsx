@@ -35,7 +35,7 @@ const useNotifReciever = () => {
         })
     }
     const ObserveLastOpn = () => {
-        firestore.collection("Lopn").where("uid", "==", user.uid).onSnapshot((snapshot) => {
+        user && firestore.collection("Lopn").where("uid", "==", user.uid).onSnapshot((snapshot) => {
             if (!snapshot.empty) {
                 let docs = snapshot.docs[0].data();
                 delete docs.uid;
