@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Layout from './Components/Layout/Layout'
@@ -21,7 +20,7 @@ function App() {
         </BrowserRouter>
       }
       {
-        !authIsReady && <img src={loading} style={{height:"30%"}} />
+        !authIsReady && <img src={loading} style={{height:"20%"}} />
       }
     </div>
   )

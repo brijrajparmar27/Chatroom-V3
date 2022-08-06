@@ -35,7 +35,7 @@ const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
           <BiArrowBack />
         </div>
         <img src={currentRoom.image} className="room_avatar" />
-        <h2>{currentRoom.name}</h2>
+        <h2 onClick={()=>{setDetailsPopup(true)}}>{currentRoom.name}</h2>
       </div>
 
       {popup && (
