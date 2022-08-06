@@ -1,6 +1,10 @@
 .right_panel{
     padding-bottom: 20px;
     padding-right: 20px;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 .right_panel .chat_box{
     position: relative;
@@ -10,11 +14,13 @@
     height: 100%;
     width: 100%;
     border-radius: 10px;
+    flex: 1;
+    overflow: hidden;
 }
 
 .right_panel .chat_box .chats_contain{
     width: 100%;
-    height: 500px;
+    height: 100%;
     overflow-y: scroll;
     display: flex;
     gap: 10px;
@@ -34,7 +40,7 @@
 }
 .right_panel .chat_box .input_bar_contain .input_bar_box form{
     width: 100%;
-    height: 100%;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
