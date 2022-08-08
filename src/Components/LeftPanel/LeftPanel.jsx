@@ -7,7 +7,7 @@ import { IoIosAdd } from "react-icons/io";
 import NewRoom from "../NewRoom/NewRoom";
 import useScreenContext from "../../Hooks/useScreenContest";
 
-const LeftPanel = ({setShowChat,showChat}) => {
+const LeftPanel = ({ setShowChat, showChat }) => {
   const [sort, setSort] = useState();
   const { fetchRooms, RoomsList, loading } = useDatabase({ sort });
   const { setCurrentRoom, notifications } = useRoomContext();
@@ -16,10 +16,33 @@ const LeftPanel = ({setShowChat,showChat}) => {
 
   useEffect(() => {
     fetchRooms();
-  }, []);
+  }, [notifications]);
+
+  // useEffect(()=>{
+  //   // RoomsList && setRooms([...RoomsList.sort((a, b) => b.priority - a.priority)]);
+  //   console.log("sorting");
+  //   RoomsList && console.log([...RoomsList].sort((a, b) => b.priority - a.priority));
+  // },[RoomsList,notifications])
+
+  // useEffect(()=>{
+  //   console.log(Rooms);
+  // },[Rooms])
+
+  // useEffect(() => {
+  //   if (RoomsList && RoomsList.length>0) {
+  //     let dataArray = RoomsList;
+  //     let sorted = [...dataArray.sort((a, b) => b.priority - a.priority)]
+  //     console.log(sorted);
+  //     // setRoomsList()
+  //   }
+  // }, [notifications,RoomsList])
+
+  // // useEffect(()=>{
+  // //   console.log(RoomsList);
+  // // },[RoomsList])
 
   return (
-    <div className={showChat?"left_panel hide":"left_panel"}>
+    <div className={showChat ? "left_panel hide" : "left_panel"}>
       {showAddRoom && <NewRoom setShowAddRoom={setShowAddRoom} />}
       <h2>Rooms</h2>
       <div className="left_bar">

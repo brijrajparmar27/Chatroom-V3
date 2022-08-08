@@ -5,6 +5,7 @@ import useAuthContext from "../../../../Hooks/useAuthContext";
 import useCreateRoom from "../../../../Hooks/useCreateRoom";
 import useRoomContext from "../../../../Hooks/useRoomContext";
 import { BiArrowBack } from "react-icons/bi";
+import useDatabase from "../../../../Hooks/useDatabase";
 
 const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
   const [popup, setPopup] = useState(false);

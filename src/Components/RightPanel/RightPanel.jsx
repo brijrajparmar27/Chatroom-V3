@@ -10,7 +10,6 @@ import ChatHeader from "./Components/ChatHeader/ChatHeader";
 import { SiGodotengine } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
 import "firebase/firestore";
-import useScreenContext from "../../Hooks/useScreenContest";
 
 const RightPanel = ({ setShowChat, showChat }) => {
   const { currentRoom } = useRoomContext();
@@ -22,7 +21,6 @@ const RightPanel = ({ setShowChat, showChat }) => {
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
   const [detailsPopup, setDetailsPopup] = useState(false);
-  const { size } = useScreenContext();
 
   const onButtonClick = () => {
     inputFile.current.click();

@@ -46,7 +46,7 @@ const useDatabase = ({ sort }) => {
 
   };
 
-  return { fetchRooms, RoomsList, loading };
+  return { fetchRooms, RoomsList, loading, setRoomsList };
 };
 
 export default useDatabase;
