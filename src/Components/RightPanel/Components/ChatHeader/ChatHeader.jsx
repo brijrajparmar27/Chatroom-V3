@@ -7,7 +7,7 @@ import useRoomContext from "../../../../Hooks/useRoomContext";
 import { BiArrowBack } from "react-icons/bi";
 import useDatabase from "../../../../Hooks/useDatabase";
 
-const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
+const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
   const [popup, setPopup] = useState(false);
   const { deleteRoom, clearRoom } = useCreateRoom();
   const { currentRoom, setCurrentRoom } = useRoomContext();
@@ -25,7 +25,7 @@ const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
     });
   };
 
-  const handlePop = ()=>{
+  const handlePop = () => {
     setShowChat(false);
   }
 
@@ -36,7 +36,7 @@ const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
           <BiArrowBack />
         </div>
         <img src={currentRoom.image} className="room_avatar" />
-        <h2 onClick={()=>{setDetailsPopup(true)}}>{currentRoom.name}</h2>
+        <h2 onClick={() => { setDetailsPopup(true) }}>{currentRoom.name}</h2>
       </div>
 
       {popup && (
@@ -68,7 +68,7 @@ const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
           >
             Details
           </p>
-          <p
+          {(currentRoom.creatorUID == user.uid || user.uid == adminUID) && (<p
             className="popup_option"
             onClick={() => {
               clearRoom();
@@ -76,7 +76,7 @@ const ChatHeader = ({ setDetailsPopup,setShowChat }) => {
             }}
           >
             Clear Chat
-          </p>
+          </p>)}
           {(currentRoom.creatorUID == user.uid || user.uid == adminUID) && (
             <button className="del_room_btn" onClick={handleDeleteRoom}>
               Delete
