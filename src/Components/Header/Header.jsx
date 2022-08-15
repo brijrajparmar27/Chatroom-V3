@@ -3,6 +3,7 @@ import logo from "../../assets/images/logo.png";
 import avatar from "../../assets/images/avatar.svg";
 import { useRef, useState } from "react";
 import "./Header.css";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 import useImage from "../../Hooks/useImage";
 import { storage } from "../../Firebase/config";
@@ -42,6 +43,24 @@ const Header = ({ user }) => {
     }
   };
 
+  const popupVariant = {
+    hide: {
+      opacity: 0,
+      y: -50
+    },
+    show: {
+      opacity: 1,
+      y: 0
+    },
+    close: {
+      opacity: 0,
+      y: -50,
+      transition:{
+        duration:0.1
+      }
+    }
+  }
+
   return (
     <div className="header">
 
@@ -51,7 +70,7 @@ const Header = ({ user }) => {
       </div>
 
       <div className="user_profile_contain">
-      
+
         {progress && (
           <div className="progress_bar">
             <div
@@ -88,30 +107,33 @@ const Header = ({ user }) => {
             }}
           ></div>
         )}
-        
-        {showPopup && (
-          <div className="popup">
-            <p className="popup_option" onClick={onButtonClick}>
-              Change Photo
-            </p>
-            <input
-              type="file"
-              id="file"
-              ref={inputFile}
-              style={{ display: "none" }}
-              onChange={handleImageChange}
-            />
-            <a
-              href="mailto:brijrajparmaromegab32@gmail.com"
-              className="popup_option"
-            >
-              Report bug
-            </a>
-            <button className="logout_btn" onClick={logout}>
-              Logout
-            </button>
-          </div>
-        )}
+
+        <AnimatePresence>
+          {showPopup && (
+            <motion.div className="popup" variants={popupVariant} initial='hide' animate='show' exit='close'>
+              <p className="popup_option" onClick={onButtonClick}>
+                Change Photo
+              </p>
+              <input
+                type="file"
+                id="file"
+                ref={inputFile}
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+              />
+              <a
+                href="mailto:brijrajparmaromegab32@gmail.com"
+                className="popup_option"
+              >
+                Report bug
+              </a>
+              <button className="logout_btn" onClick={logout}>
+                Logout
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import useLogin from "../../Hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
+import {motion} from "framer-motion";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -44,16 +45,36 @@ const AuthPage = () => {
     e.target.reset();
   };
 
+  const brandingVariant = {
+    hide:{
+      opacity:0
+    },
+    show:{
+      opacity:1
+    }
+  }
+
+  const formVariant = {
+    hide:{
+      y: "-100px",
+      opacity:0
+    },
+    show:{
+      y: 0,
+      opacity:[0,0.8,1],
+    }
+  }
+
   return (
     <div className="authpage">
-      <div className="branding">
+      <motion.div className="branding" variants={brandingVariant} initial="hide" animate="show">
         <img src={logo} alt="" />
         <h1>Chatroom</h1>
-      </div>
+      </motion.div>
 
       <div className="authcontain">
         <div className="auth_form_contain">
-          <div className="auth_form">
+          <motion.div className="auth_form" variants={formVariant} initial="hide" animate="show">
             <h3 className="form_title">Welcome {isLogin ? `Back` : ``}</h3>
             <h4 className="form_subtitle">
               {isLogin
@@ -86,7 +107,7 @@ const AuthPage = () => {
                 }}
               />
               {!isLogin && (
-                <>
+                <motion.div variants={formVariant} initial='hide' animate='show' className="uname_contain">
                   <p className="field_title">Username</p>
                   <input
                     className="input_field"
@@ -97,7 +118,7 @@ const AuthPage = () => {
                         setUname(e.target.value.trim());
                     }}
                   />
-                </>
+                </motion.div>
               )}
               {error && <p className="error_msg">{error.message}</p>}
               <button
@@ -128,7 +149,7 @@ const AuthPage = () => {
                 </p>
               </div>
             </form>
-          </div>
+          </motion.div>
         </div>
 
         <div className="illustration_contain">

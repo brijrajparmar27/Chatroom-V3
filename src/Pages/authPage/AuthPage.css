@@ -178,6 +178,12 @@
   width: fit-content;
 }
 
+.uname_contain {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /* ********************************
 ******************************** */
 /* ****** Media Queries ***********/
@@ -187,15 +193,17 @@
 
 
 @media only screen and (max-width: 1200px) {
-  
-  .authpage .branding{
+
+  .authpage .branding {
     top: 20px;
     left: 20px;
   }
-  .authpage .authcontain .auth_form_contain .auth_form{
+
+  .authpage .authcontain .auth_form_contain .auth_form {
     padding: 20px 20px;
   }
-  .authpage .authcontain{
+
+  .authpage .authcontain {
     height: fit-content;
   }
 }
@@ -208,7 +216,8 @@
   .authpage .authcontain .auth_form_contain {
     border-radius: 10px;
   }
-  .authpage .authcontain{
+
+  .authpage .authcontain {
     width: fit-content;
   }
 }

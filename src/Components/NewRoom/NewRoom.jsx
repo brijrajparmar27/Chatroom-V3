@@ -5,6 +5,7 @@ import useImage from "../../Hooks/useImage";
 import useAuthContext from "../../Hooks/useAuthContext";
 import useCreateRoom from "../../Hooks/useCreateRoom";
 import { storage } from "../../Firebase/config";
+import { AnimatePresence, motion } from "framer-motion";
 
 const NewRoom = ({ setShowAddRoom }) => {
   const { createRoom } = useCreateRoom();
@@ -85,6 +86,18 @@ const NewRoom = ({ setShowAddRoom }) => {
     }
   };
 
+  const popupVariant = {
+    hide: {
+      scale: 0,
+    },
+    show: {
+      scale: 1,
+    },
+    close: {
+      scale: 0
+    }
+  }
+
   return (
     <div
       className="NewRoom"
@@ -96,7 +109,11 @@ const NewRoom = ({ setShowAddRoom }) => {
         setShowAddRoom(false);
       }}
     >
-      <div
+      <motion.div
+        variants={popupVariant}
+        initial='hide'
+        animate='show'
+        exit='close'
         className="card"
         onClick={(e) => {
           handlePropagation(e);
@@ -156,7 +173,7 @@ const NewRoom = ({ setShowAddRoom }) => {
             </button>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

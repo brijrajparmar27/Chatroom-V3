@@ -3,6 +3,7 @@ import "./Bubble.css";
 import firebase from "firebase";
 import "firebase/firestore";
 import dpplaceholder from "../../assets/images/avatar.svg";
+import {motion} from "framer-motion";
 
 const Bubble = ({ each }) => {
 
@@ -20,6 +21,15 @@ const Bubble = ({ each }) => {
   let hours = getTime({minuites:false});
   let mins = getTime({minuites:true});
 
+  const msgVariants = {
+    hide:{
+      y:"100%"
+    },
+    show:{
+      y:0
+    }
+  }
+
   return (
     <>
       {user && (
@@ -34,7 +44,7 @@ const Bubble = ({ each }) => {
               <img src={each.senderImg?each.senderImg:dpplaceholder} className="chat_msg_dp" />
             </div>
           )}
-          <div className="msg">
+          <motion.div className="msg" variants={msgVariants} initial='hide' animate='show'>
             {each.uid !== user.uid && (
               <p className="sender_name">{each.displayName}</p>
             )}
@@ -45,7 +55,7 @@ const Bubble = ({ each }) => {
             <p className="time">
               {parseInt(hours) % 12 ==0?"01":parseInt(hours) % 12 }:{parseInt(mins) < 10 ? "0" + mins : mins} {hours>12?"PM":"AM"}
             </p>
-          </div>
+          </motion.div>
         </div>
       )}
     </>

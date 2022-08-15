@@ -5,6 +5,7 @@ import useAuthContext from "../../../../Hooks/useAuthContext";
 import useCreateRoom from "../../../../Hooks/useCreateRoom";
 import useRoomContext from "../../../../Hooks/useRoomContext";
 import { BiArrowBack } from "react-icons/bi";
+import { AnimatePresence, motion } from "framer-motion";
 import useDatabase from "../../../../Hooks/useDatabase";
 
 const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
@@ -27,6 +28,24 @@ const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
 
   const handlePop = () => {
     setShowChat(false);
+  }
+
+  const popupVariant = {
+    hide: {
+      opacity: 0,
+      y: -50
+    },
+    show: {
+      opacity: 1,
+      y: 0
+    },
+    close: {
+      opacity: 0,
+      y: -50,
+      transition: {
+        duration: 0.1
+      }
+    }
   }
 
   return (
@@ -57,33 +76,36 @@ const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
         <BsThreeDotsVertical />
       </div>
 
-      {popup && (
-        <div className="room_menu">
-          <p
-            className="popup_option"
-            onClick={() => {
-              setDetailsPopup(true);
-              setPopup(false);
-            }}
-          >
-            Details
-          </p>
-          {(currentRoom.creatorUID == user.uid || user.uid == adminUID) && (<p
-            className="popup_option"
-            onClick={() => {
-              clearRoom();
-              setPopup(false);
-            }}
-          >
-            Clear Chat
-          </p>)}
-          {(currentRoom.creatorUID == user.uid || user.uid == adminUID) && (
-            <button className="del_room_btn" onClick={handleDeleteRoom}>
-              Delete
-            </button>
-          )}
-        </div>
-      )}
+      <AnimatePresence>
+        {popup && (
+          <motion.div className="room_menu" variants={popupVariant} initial='hide' animate='show' exit='close'>
+            <p
+              className="popup_option"
+              onClick={() => {
+                setDetailsPopup(true);
+                setPopup(false);
+              }}
+            >
+              Details
+            </p>
+            {(currentRoom.creatorUID == user.uid || user.uid == adminUID) && (<p
+              className="popup_option"
+              onClick={() => {
+                clearRoom();
+                setPopup(false);
+              }}
+            >
+              Clear Chat
+            </p>)}
+            {(currentRoom.creatorUID == user.uid || user.uid == adminUID) && (
+              <button className="del_room_btn" onClick={handleDeleteRoom}>
+                Delete
+              </button>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
     </div>
   );
 };

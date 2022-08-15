@@ -9,6 +9,7 @@ import useImage from "../../Hooks/useImage";
 import ChatHeader from "./Components/ChatHeader/ChatHeader";
 import { SiGodotengine } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
+import { AnimatePresence, motion } from "framer-motion";
 import "firebase/firestore";
 
 const RightPanel = ({ setShowChat, showChat }) => {
@@ -71,28 +72,42 @@ const RightPanel = ({ setShowChat, showChat }) => {
     }
   };
 
+  const sideVariant = {
+    hide:{
+      x:"100%"
+    },
+    show:{
+      x:0
+    },
+    close:{
+      x:"100%"
+    }
+  }
+
   return (
     <div className={showChat ? "right_panel" : "right_panel hide"}>
       <div className="chat_box">
 
-        {detailsPopup && <div className="room_details_contain">
-          <div className="top_avatar_contain">
-            <div className="close_details_page" onClick={() => { setDetailsPopup(false) }}>
-              <IoMdClose />
+        <AnimatePresence>
+          {detailsPopup && <motion.div className="room_details_contain" variants={sideVariant} initial='hide' animate='show' exit='close'>
+            <div className="top_avatar_contain">
+              <div className="close_details_page" onClick={() => { setDetailsPopup(false) }}>
+                <IoMdClose />
+              </div>
+              <img src={currentRoom.image} className="top_avatar" />
             </div>
-            <img src={currentRoom.image} className="top_avatar" />
-          </div>
-          <div className="details_content_contain">
-            <h2 className="room_name">{currentRoom.name}</h2>
-            <p>Created by</p>
-            {!currentRoom.creatorName && <SiGodotengine style={{ fontSize: "40px", color: "grey" }} />}
-            {currentRoom.creatorName && <div className="created_by">
-              <img src={currentRoom.creatorImg} className="creator_img" />
-              <p className="creator_name">{currentRoom.creatorName}</p>
-            </div>}
+            <div className="details_content_contain">
+              <h2 className="room_name">{currentRoom.name}</h2>
+              <p>Created by</p>
+              {!currentRoom.creatorName && <SiGodotengine style={{ fontSize: "40px", color: "grey" }} />}
+              {currentRoom.creatorName && <div className="created_by">
+                <img src={currentRoom.creatorImg} className="creator_img" />
+                <p className="creator_name">{currentRoom.creatorName}</p>
+              </div>}
 
-          </div>
-        </div>}
+            </div>
+          </motion.div>}
+        </AnimatePresence>
 
         <ChatHeader setDetailsPopup={setDetailsPopup} setShowChat={setShowChat} />
 

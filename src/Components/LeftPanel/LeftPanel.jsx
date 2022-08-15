@@ -6,6 +6,7 @@ import useRoomContext from "../../Hooks/useRoomContext";
 import { IoIosAdd } from "react-icons/io";
 import NewRoom from "../NewRoom/NewRoom";
 import useScreenContext from "../../Hooks/useScreenContest";
+import { AnimatePresence, motion } from "framer-motion";
 
 const LeftPanel = ({ setShowChat, showChat }) => {
   const [sort, setSort] = useState();
@@ -43,7 +44,9 @@ const LeftPanel = ({ setShowChat, showChat }) => {
 
   return (
     <div className={showChat ? "left_panel hide" : "left_panel"}>
+
       {showAddRoom && <NewRoom setShowAddRoom={setShowAddRoom} />}
+
       <h2>Rooms</h2>
       <div className="left_bar">
         <div className="search_contain">
