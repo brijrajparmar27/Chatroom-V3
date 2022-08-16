@@ -139,6 +139,7 @@ const NewRoom = ({ setShowAddRoom }) => {
             <p>Room Name</p>
             <input
               type="text"
+              autoComplete="off"
               className="room_name_inp"
               onChange={(e) => {
                 setRoomName(e.target.value.trim().toLowerCase());

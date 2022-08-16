@@ -142,6 +142,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
                 >
                   <input
                     type="text"
+                    autoComplete="off"
                     placeholder="Write a message..."
                     className="msg_textbox"
                     name="msg"

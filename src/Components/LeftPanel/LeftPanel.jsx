@@ -54,6 +54,7 @@ const LeftPanel = ({ setShowChat, showChat }) => {
           <input
             type="text"
             className="room_search_bar"
+            autoComplete="off"
             onChange={(e) => {
               setSort(e.target.value.trim().toLowerCase());
             }}
