@@ -14,6 +14,9 @@
     max-width: 350px;
     overflow-wrap: break-word;
 }
+.chats_contain .msg_contain .msg{
+    /* z-index: 120; */
+}
 .chats_contain .msg_contain .msg .sender_name
 {
     font-weight: bold;
