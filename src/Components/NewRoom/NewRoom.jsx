@@ -141,7 +141,7 @@ const NewRoom = ({ setShowAddRoom }) => {
               type="text"
               className="room_name_inp"
               onChange={(e) => {
-                setRoomName(e.target.value.trim());
+                setRoomName(e.target.value.trim().toLowerCase());
               }}
             />
             <p>Upload Profile Picture</p>
