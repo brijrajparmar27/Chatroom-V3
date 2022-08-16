@@ -164,7 +164,7 @@ const AuthPage = () => {
         </div>
 
         <div className="illustration_contain">
-          <motion.div className="circle" variants={circleVariant} animate={isLogin?'circls':'square'} transition={{duration:1,ease:"easeInOut"}}></motion.div>
+          <motion.div className="circle" variants={circleVariant} animate={isLogin?'circls':'square'} transition={{type:"spring",duration:1,ease:"easeInOut"}}></motion.div>
           <div className="normal"></div>
           <div className="blur"></div>
         </div>
