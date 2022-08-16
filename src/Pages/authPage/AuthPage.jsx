@@ -66,18 +66,41 @@ const AuthPage = () => {
   }
 
   const circleVariant = {
-    circle:{
-      rotate:270,
-      borderRadius:"50%",
+    circle: {
+      rotate: 270,
+      borderRadius: "50%",
     },
-    square:{
-      rotate:-225,
-      borderRadius:"10%"
+    square: {
+      rotate: -225,
+      borderRadius: "10%"
+    }
+  }
+
+  const pageVariant = {
+    hide: {
+      x: 100,
+      transition: {
+        type: "tween", duration: 1, ease: "linear"
+      }
+    },
+    show: {
+      x: 0,
+      transition: {
+        type: "tween", duration: 1, ease: "linear"
+      }
+    },
+    exit: {
+      x: 100,
+      transition: {
+        type: "tween", duration: 1, ease: "linear"
+      }
     }
   }
 
   return (
-    <div className="authpage">
+    <motion.div className="authpage" variants={pageVariant}
+      initial='hide' animate='show' exit='exit'>
+
       <motion.div className="branding" variants={brandingVariant} initial="hide" animate="show">
         <img src={logo} alt="" />
         <h1>Chatroom</h1>
@@ -164,12 +187,12 @@ const AuthPage = () => {
         </div>
 
         <div className="illustration_contain">
-          <motion.div className="circle" variants={circleVariant} animate={isLogin?'circls':'square'} transition={{type:"spring",duration:1,ease:"easeInOut"}}></motion.div>
+          <motion.div className="circle" variants={circleVariant} animate={isLogin ? 'circls' : 'square'} transition={{ type: "spring", duration: 1, ease: "easeInOut" }}></motion.div>
           <div className="normal"></div>
           <div className="blur"></div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

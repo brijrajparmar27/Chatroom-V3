@@ -6,6 +6,7 @@ import Header from "../../Components/Header/Header";
 import LeftPanel from "../../Components/LeftPanel/LeftPanel";
 import RightPanel from "../../Components/RightPanel/RightPanel";
 import useNotifReciever from "../../Hooks/useNotifReciever";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -22,14 +23,39 @@ const Home = () => {
     ObserveLastOpn();
   }, [])
 
+  const pageVariant = {
+    hide: {
+      x: -100,
+      transition: {
+        type: "tween", duration: 1, ease: "linear"
+      }
+    },
+    show: {
+      x: 0,
+      transition: {
+        type: "tween", duration: 1, ease: "linear"
+      }
+    },
+    exit: {
+      x: -100,
+      transition: {
+        type: "tween", duration: 1, ease: "linear"
+      }
+    }
+  }
+
   return (
-    <div className="home">
+    <motion.div className="home"
+      variants={pageVariant} initial='hide' animate='show'
+      exit='exit'>
+
       <Header user={user} />
 
       <LeftPanel showChat={showChat} setShowChat={setShowChat} />
 
       <RightPanel showChat={showChat} setShowChat={setShowChat} />
-    </div>
+
+    </motion.div>
   );
 };
 export default Home;
