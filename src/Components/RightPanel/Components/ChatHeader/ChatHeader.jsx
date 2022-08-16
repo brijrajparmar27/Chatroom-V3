@@ -48,8 +48,17 @@ const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
     }
   }
 
+  const headerVariant = {
+    hide:{
+      y:"-100%"
+    },
+    show:{
+      y:0
+    }
+  }
+
   return (
-    <div className="chat_header">
+    <motion.div className="chat_header" variants={headerVariant} initial='hide' animate='show'>
       <div className="header_left">
         <div className="back" onClick={handlePop}>
           <BiArrowBack />
@@ -106,7 +115,7 @@ const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
         )}
       </AnimatePresence>
 
-    </div>
+    </motion.div>
   );
 };
 export default ChatHeader;

@@ -7,7 +7,7 @@ import useLogin from "../../Hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -46,22 +46,33 @@ const AuthPage = () => {
   };
 
   const brandingVariant = {
-    hide:{
-      opacity:0
+    hide: {
+      opacity: 0
     },
-    show:{
-      opacity:1
+    show: {
+      opacity: 1
     }
   }
 
   const formVariant = {
-    hide:{
+    hide: {
       y: "-100px",
-      opacity:0
+      opacity: 0
     },
-    show:{
+    show: {
       y: 0,
-      opacity:[0,0.8,1],
+      opacity: [0, 0.8, 1],
+    }
+  }
+
+  const circleVariant = {
+    circle:{
+      rotate:270,
+      borderRadius:"50%",
+    },
+    square:{
+      rotate:-225,
+      borderRadius:"10%"
     }
   }
 
@@ -153,7 +164,7 @@ const AuthPage = () => {
         </div>
 
         <div className="illustration_contain">
-          <div className="circle"></div>
+          <motion.div className="circle" variants={circleVariant} animate={isLogin?'circls':'square'} transition={{duration:1,ease:"easeInOut"}}></motion.div>
           <div className="normal"></div>
           <div className="blur"></div>
         </div>

@@ -27,6 +27,12 @@ const Bubble = ({ each }) => {
     },
     show:{
       y:0
+    },
+    hoverL:{
+      x:5
+    },
+    hoverR:{
+      x:-5
     }
   }
 
@@ -44,7 +50,7 @@ const Bubble = ({ each }) => {
               <img src={each.senderImg?each.senderImg:dpplaceholder} className="chat_msg_dp" />
             </div>
           )}
-          <motion.div className="msg" variants={msgVariants} initial='hide' animate='show'>
+          <motion.div className="msg" variants={msgVariants} initial='hide' animate='show' whileHover={each.uid == user.uid?'hoverR':'hoverL'}>
             {each.uid !== user.uid && (
               <p className="sender_name">{each.displayName}</p>
             )}

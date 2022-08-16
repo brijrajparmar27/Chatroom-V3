@@ -1,9 +1,11 @@
 import { firestore, storage } from "../Firebase/config";
+import useDatabase from "./useDatabase";
 import useRoomContext from "./useRoomContext";
 
 const useCreateRoom = () => {
-  
+
   const { currentRoom } = useRoomContext();
+  const { setRoomsList } = useDatabase(false);
 
   const createRoom = async (newDoc) => {
     try {
@@ -14,7 +16,7 @@ const useCreateRoom = () => {
     }
   };
 
-  const clearRoom = ()=>{
+  const clearRoom = () => {
     var chat_del_query = firestore
       .collection("chats")
       .where("roomid", "==", currentRoom.roomid);
@@ -25,7 +27,7 @@ const useCreateRoom = () => {
     });
   }
 
-  const clearRoomDP = ()=>{
+  const clearRoomDP = () => {
     var fileRef = storage.refFromURL(currentRoom.image);
     fileRef.delete();
   }
@@ -35,10 +37,20 @@ const useCreateRoom = () => {
     clearRoom()
     clearRoomDP();
 
-    var room_del_query = firestore
+    firestore
       .collection("rooms")
       .doc(currentRoom.roomid)
-      .delete();
+      .delete()
+      // .then(() => {
+        
+      //   console.log("cleaning up")
+
+      //   setRoomsList((prev) => {
+      //     return prev.filter((each) => {
+      //       return each.roomid !== currentRoom.roomid;
+      //     })
+      //   })
+      // });
 
   };
 

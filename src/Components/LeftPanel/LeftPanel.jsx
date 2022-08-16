@@ -11,13 +11,26 @@ import { AnimatePresence, motion } from "framer-motion";
 const LeftPanel = ({ setShowChat, showChat }) => {
   const [sort, setSort] = useState();
   const { fetchRooms, RoomsList, loading } = useDatabase({ sort });
+  const [roomData, setRoomData] = useState();
   const { setCurrentRoom, notifications } = useRoomContext();
   const [showAddRoom, setShowAddRoom] = useState(false);
   const { size } = useScreenContext();
+  let temp;
 
   useEffect(() => {
-    fetchRooms();
+    if (roomData) {
+      temp = roomData;
+      temp = temp.map((each) => {
+        return { ...each, priority: notifications.includes(each.roomid) ? 1 : 0 };
+      })
+      setRoomData([...temp.sort((a, b) => b.priority - a.priority)]);
+    }
   }, [notifications]);
+
+  useEffect(() => {
+    RoomsList && setRoomData([...RoomsList]);
+    // RoomsList && console.log(RoomsList);
+  }, [RoomsList])
 
   // useEffect(()=>{
   //   // RoomsList && setRooms([...RoomsList.sort((a, b) => b.priority - a.priority)]);
@@ -71,8 +84,8 @@ const LeftPanel = ({ setShowChat, showChat }) => {
       </div>
       <div className="rooms_contain scrollbar" id="style-1">
         {!loading &&
-          RoomsList &&
-          RoomsList.map((each, index) => {
+          roomData &&
+          roomData.map((each, index) => {
             return (
               <div
                 className="room_card"

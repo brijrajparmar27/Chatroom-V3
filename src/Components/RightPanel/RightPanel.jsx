@@ -84,6 +84,15 @@ const RightPanel = ({ setShowChat, showChat }) => {
     }
   }
 
+  const inputboxVariant = {
+    hide:{
+      y:"100%"
+    },
+    show:{
+      y:0
+    }
+  }
+
   return (
     <div className={showChat ? "right_panel" : "right_panel hide"}>
       <div className="chat_box">
@@ -134,7 +143,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
             </div>
 
             <div className="input_bar_contain">
-              <div className="input_bar_box">
+              <motion.div className="input_bar_box" variants={inputboxVariant} initial='hide' animate='show'>
                 <form
                   onSubmit={(e) => {
                     handleSend(e);
@@ -183,7 +192,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
                     )}
                   </button>
                 </form>
-              </div>
+              </motion.div>
             </div>
           </>
         )}
