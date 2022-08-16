@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       {
         authIsReady &&
-        <AnimatePresence onExitComplete>
+        <AnimatePresence exitBeforeEnter>
           <Routes location={location} key={location.pathname}>
             <Route path='/' element={<Layout><Home /></Layout>} />
             <Route path='/authpage' element={<Layout><AuthPage /></Layout>} />

@@ -25,21 +25,21 @@ const Home = () => {
 
   const pageVariant = {
     hide: {
-      x: -100,
+      x: "-100vw",
       transition: {
-        type: "tween", duration: 1, ease: "linear"
+        type: "spring", duration: 0.5, ease: "easeInOut"
       }
     },
     show: {
       x: 0,
       transition: {
-        type: "tween", duration: 1, ease: "linear"
+        type: "spring", duration: 0.5, ease: "easeInOut"
       }
     },
     exit: {
-      x: -100,
+      x: "-100vw",
       transition: {
-        type: "tween", duration: 1, ease: "linear"
+        type: "spring", duration: 0.5, ease: "easeInOut"
       }
     }
   }
