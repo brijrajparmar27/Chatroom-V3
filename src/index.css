@@ -6,9 +6,9 @@
 }
 #root{
   display: flex;
-  /* background-color: pink; */
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 body{
   font-family: 'Roboto', sans-serif;

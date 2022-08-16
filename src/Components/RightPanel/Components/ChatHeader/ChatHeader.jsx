@@ -49,11 +49,11 @@ const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
   }
 
   const headerVariant = {
-    hide:{
-      y:"-100%"
+    hide: {
+      y: "-100%"
     },
-    show:{
-      y:0
+    show: {
+      y: 0
     }
   }
 

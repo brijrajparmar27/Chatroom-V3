@@ -61,35 +61,37 @@ const RightPanel = ({ setShowChat, showChat }) => {
   const handleSend = (e) => {
     e.preventDefault();
     if (enableSend) {
-      const msg = e.target.msg.value;
+      const msg = e.target.msg.value.trim();
       if (!textImg && !msg) {
         return;
       }
-      let dataJson = createJson({ image: textImg, text: msg });
-      Send(dataJson);
-      e.target.reset();
-      setTextImg(false);
+      else {
+        let dataJson = createJson({ image: textImg, text: msg });
+        Send(dataJson);
+        e.target.reset();
+        setTextImg(false);
+      }
     }
   };
 
   const sideVariant = {
-    hide:{
-      x:"100%"
+    hide: {
+      x: "100%"
     },
-    show:{
-      x:0
+    show: {
+      x: 0
     },
-    close:{
-      x:"100%"
+    close: {
+      x: "100%"
     }
   }
 
   const inputboxVariant = {
-    hide:{
-      y:"100%"
+    hide: {
+      y: "100%"
     },
-    show:{
-      y:0
+    show: {
+      y: 0
     }
   }
 
