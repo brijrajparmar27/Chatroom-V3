@@ -70,11 +70,11 @@
     border-radius: 10px;
     border: none;
     outline: none;
-    background-color: #623eb6cb;
+    background-color: #613eb6;
     color: white;
 }
 .right_panel .chat_box .input_bar_contain .input_bar_box .msg_submit_btn:disabled{
-    background-color: #544b69cb;
+    background-color: #7766a0;
 }
 .right_panel .scrollbar
 {
