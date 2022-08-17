@@ -18,6 +18,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
   const { updateProfilePic, progress } = useImage();
   const { user } = useAuthContext();
   const [textImg, setTextImg] = useState(false);
+  const [msgtext, setMsgtext] = useState(false);
   const [Url, setUrl] = useState();
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
@@ -58,6 +59,15 @@ const RightPanel = ({ setShowChat, showChat }) => {
     return dataJson;
   };
 
+  const handleTextChange = (e) => {
+    if (e.target.value.trim()) {
+      setMsgtext(e.target.value.trim());
+    }
+    else {
+      setMsgtext(false);
+    }
+  }
+
   const handleSend = (e) => {
     e.preventDefault();
     if (enableSend) {
@@ -70,6 +80,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
         Send(dataJson);
         e.target.reset();
         setTextImg(false);
+        setMsgtext(false);
       }
     }
   };
@@ -157,6 +168,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
                     placeholder="Write a message..."
                     className="msg_textbox"
                     name="msg"
+                    onChange={(e) => { handleTextChange(e) }}
                   />
                   <div className="file_selector_btn" onClick={onButtonClick}>
                     <AiOutlinePaperClip
@@ -176,7 +188,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
                   <button
                     type="submit"
                     className="msg_submit_btn"
-                    disabled={enableSend ? false : true}
+                    disabled={(textImg || msgtext) ? false : true}
                   >
                     {enableSend ? (
                       <AiOutlineSend
