@@ -1,4 +1,4 @@
-<img src="src/images/logo.png" align="right" height="120px" />
+<img src="https://github.com/brijrajparmar27/Chatroom-V3/blob/master/src/assets/images/logo.png?raw=true" align="right" height="120px" />
 
 # ChatRoom
 
