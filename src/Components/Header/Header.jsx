@@ -27,19 +27,27 @@ const Header = ({ user }) => {
     setUrl(url);
   };
 
+  let validImages = ["jpg", "jpeg", "png", "gif"];
+
   const handleImageChange = async (e) => {
     if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-      updateProfilePic(
-        true,
-        e.target.files[0],
-        user,
-        "ProfilePictures",
-        user.uid,
-        {
-          onComplete: onUploadComplete,
-        }
-      );
+
+      let fileName = e.target.files[0].name;
+      let extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+      if (validImages.includes(extention)) {
+        setImage(e.target.files[0]);
+        updateProfilePic(
+          true,
+          e.target.files[0],
+          user,
+          "ProfilePictures",
+          user.uid,
+          {
+            onComplete: onUploadComplete,
+          }
+        );
+      }
     }
   };
 
@@ -55,8 +63,8 @@ const Header = ({ user }) => {
     close: {
       opacity: 0,
       y: -50,
-      transition:{
-        duration:0.1
+      transition: {
+        duration: 0.1
       }
     }
   }
@@ -120,6 +128,7 @@ const Header = ({ user }) => {
                 ref={inputFile}
                 style={{ display: "none" }}
                 onChange={handleImageChange}
+                accept="image/*"
               />
               <a
                 href="mailto:brijrajparmaromegab32@gmail.com"

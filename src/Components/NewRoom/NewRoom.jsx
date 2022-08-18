@@ -70,19 +70,32 @@ const NewRoom = ({ setShowAddRoom }) => {
     setRoomDpUrl(url);
   };
 
+  let validImages = ["jpg", "jpeg", "png", "gif"];
+
   const handleImageChange = async (e) => {
     if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-      updateProfilePic(
-        false,
-        e.target.files[0],
-        user,
-        "RoomImages",
-        generateUniqueName(),
-        {
-          onComplete: onUploadComplete,
-        }
-      );
+
+      let fileName = e.target.files[0].name;
+      let extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+      if (validImages.includes(extention)) {
+        setError(false);
+        setImage(e.target.files[0]);
+        updateProfilePic(
+          false,
+          e.target.files[0],
+          user,
+          "RoomImages",
+          generateUniqueName(),
+          {
+            onComplete: onUploadComplete,
+          }
+        );
+
+      }
+      else {
+        setError({message:"Invalid Image Format"});
+      }
     }
   };
 
@@ -152,6 +165,7 @@ const NewRoom = ({ setShowAddRoom }) => {
               ref={inputFile}
               style={{ display: "none" }}
               onChange={handleImageChange}
+              accept="image/*"
             />
             <div className="file_pick_contain" onClick={onButtonClick}>
               {!roomDpUrl && <BsFillCloudUploadFill />}

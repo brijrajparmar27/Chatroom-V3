@@ -11,6 +11,7 @@ import { SiGodotengine } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 import "firebase/firestore";
+import { useEffect } from "react";
 
 const RightPanel = ({ setShowChat, showChat }) => {
   const { currentRoom } = useRoomContext();
@@ -23,6 +24,9 @@ const RightPanel = ({ setShowChat, showChat }) => {
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
   const [detailsPopup, setDetailsPopup] = useState(false);
+  const [invalidImg,setInvalidImg] = useState(false);
+
+  let validImages = ["jpg", "jpeg", "png", "gif"];
 
   const onButtonClick = () => {
     inputFile.current.click();
@@ -35,16 +39,34 @@ const RightPanel = ({ setShowChat, showChat }) => {
 
   const handleImageChange = async (e) => {
     if (e.target.files[0]) {
-      setEnableSend(false);
-      let imgname = `${currentRoom.roomid}_${user.uid}_${Math.round(
-        Math.random() * 100000
-      )}`;
-      setTextImg(e.target.files[0]);
-      updateProfilePic(false, e.target.files[0], user, "ChatImages", imgname, {
-        onComplete: onUploadComplete,
-      });
+      let fileName = e.target.files[0].name;
+      let extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
+
+      if (validImages.includes(extention)) {
+        console.log(extention+" is valid");
+        setEnableSend(false);
+        let imgname = `${currentRoom.roomid}_${user.uid}_${Math.round(
+          Math.random() * 100000
+        )}`;
+        setTextImg(e.target.files[0]);
+        updateProfilePic(false, e.target.files[0], user, "ChatImages", imgname, {
+          onComplete: onUploadComplete,
+        });
+      }
+      else {
+        setInvalidImg(true);
+      }
     }
   };
+
+  useEffect(()=>{
+    if(invalidImg)
+    {
+      setTimeout(()=>{
+        setInvalidImg(false);
+      },1550)
+    }
+  },[invalidImg])
 
   const createJson = ({ image, text }) => {
     const dataJson = {
@@ -103,6 +125,15 @@ const RightPanel = ({ setShowChat, showChat }) => {
     },
     show: {
       y: 0
+    }
+  }
+
+  const filePickerVariant = {
+    shake:{
+      rotate:[10,-10,10,-10,10,-10,10,-10,0],
+      transition:{
+        diration:1.5
+      }
     }
   }
 
@@ -170,20 +201,21 @@ const RightPanel = ({ setShowChat, showChat }) => {
                     name="msg"
                     onChange={(e) => { handleTextChange(e) }}
                   />
-                  <div className="file_selector_btn" onClick={onButtonClick}>
+                  <motion.div className="file_selector_btn" onClick={onButtonClick} variants={filePickerVariant} animate={invalidImg?"shake":""}>
                     <AiOutlinePaperClip
                       style={{
                         fontSize: "26px",
                         color: textImg ? "blue" : "grey",
                       }}
                     ></AiOutlinePaperClip>
-                  </div>
+                  </motion.div>
                   <input
                     type="file"
                     id="file"
                     ref={inputFile}
                     style={{ display: "none" }}
                     onChange={handleImageChange}
+                    accept="image/*"
                   />
                   <button
                     type="submit"
