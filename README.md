@@ -24,7 +24,6 @@ Made using ReactJs and Firebase
  - firebase
  - framer-motion
  - react-icons
- - react-icons
 
 ## Download or Run the project
 - With Nodejs installed, clone project and run `npm install` and `npm run dev` in that directory,
