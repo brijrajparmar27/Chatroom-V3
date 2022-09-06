@@ -8,8 +8,14 @@ const useSignup = () => {
   const signup = async ({ email, pass, uname }) => {
     try {
       setLoading(true);
-      let res = await auth.createUserWithEmailAndPassword(email, pass);
+      
+      if(!uname)
+      {
+        throw new Error("Please Enter a Username");
+      }
 
+      let res = await auth.createUserWithEmailAndPassword(email, pass);
+      
       if (!res) {
         throw new Error("Could not complete signup");
       }
