@@ -24,7 +24,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
   const inputFile = useRef(null);
   const [enableSend, setEnableSend] = useState(true);
   const [detailsPopup, setDetailsPopup] = useState(false);
-  const [invalidImg,setInvalidImg] = useState(false);
+  const [invalidImg, setInvalidImg] = useState(false);
 
   let validImages = ["jpg", "jpeg", "png", "gif"];
 
@@ -43,7 +43,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
       let extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
 
       if (validImages.includes(extention)) {
-        console.log(extention+" is valid");
+        console.log(extention + " is valid");
         setEnableSend(false);
         let imgname = `${currentRoom.roomid}_${user.uid}_${Math.round(
           Math.random() * 100000
@@ -59,14 +59,13 @@ const RightPanel = ({ setShowChat, showChat }) => {
     }
   };
 
-  useEffect(()=>{
-    if(invalidImg)
-    {
-      setTimeout(()=>{
+  useEffect(() => {
+    if (invalidImg) {
+      setTimeout(() => {
         setInvalidImg(false);
-      },1550)
+      }, 1550)
     }
-  },[invalidImg])
+  }, [invalidImg])
 
   const createJson = ({ image, text }) => {
     const dataJson = {
@@ -129,10 +128,10 @@ const RightPanel = ({ setShowChat, showChat }) => {
   }
 
   const filePickerVariant = {
-    shake:{
-      rotate:[10,-10,10,-10,10,-10,10,-10,0],
-      transition:{
-        diration:1.5
+    shake: {
+      rotate: [10, -10, 10, -10, 10, -10, 10, -10, 0],
+      transition: {
+        diration: 1.5
       }
     }
   }
@@ -147,7 +146,9 @@ const RightPanel = ({ setShowChat, showChat }) => {
               <div className="close_details_page" onClick={() => { setDetailsPopup(false) }}>
                 <IoMdClose />
               </div>
-              <img src={currentRoom.image} className="top_avatar" />
+              <div className="top_avatar_img_contain" style={{backgroundImage:`url(${currentRoom.image})`}}>
+                {/* <img src={currentRoom.image} className="top_avatar" /> */}
+              </div>
             </div>
             <div className="details_content_contain">
               <h2 className="room_name">{currentRoom.name}</h2>
@@ -201,7 +202,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
                     name="msg"
                     onChange={(e) => { handleTextChange(e) }}
                   />
-                  <motion.div className="file_selector_btn" onClick={onButtonClick} variants={filePickerVariant} animate={invalidImg?"shake":""}>
+                  <motion.div className="file_selector_btn" onClick={onButtonClick} variants={filePickerVariant} animate={invalidImg ? "shake" : ""}>
                     <AiOutlinePaperClip
                       style={{
                         fontSize: "26px",

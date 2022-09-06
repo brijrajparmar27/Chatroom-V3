@@ -117,9 +117,17 @@
     top:20px;
     right: 20px;
 }
+.room_details_contain .top_avatar_contain .top_avatar_img_contain{
+    height: 130px;
+    width: 130px;
+    background-color: #613eb6;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .room_details_contain .top_avatar_contain .top_avatar{
     height: 130px;
-    border-radius: 50%;
 }
 .room_details_contain .details_content_contain{
     flex: 7;

@@ -7,13 +7,14 @@ import useRoomContext from "../../../../Hooks/useRoomContext";
 import { BiArrowBack } from "react-icons/bi";
 import { AnimatePresence, motion } from "framer-motion";
 import useDatabase from "../../../../Hooks/useDatabase";
+import { useEffect } from "react";
 
 const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
   const [popup, setPopup] = useState(false);
   const { deleteRoom, clearRoom } = useCreateRoom();
   const { currentRoom, setCurrentRoom } = useRoomContext();
   const { user } = useAuthContext();
-  const adminUID = "0t7KbQsKGPMab0VCB61uvs2LjT82";
+  const adminUID = "1JIDD2wkCsbeEL2xbWZKHm5Fpg52";
 
   const handleDeleteRoom = () => {
     setPopup(false);
