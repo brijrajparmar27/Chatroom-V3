@@ -3,11 +3,17 @@ import "./Bubble.css";
 import firebase from "firebase";
 import "firebase/firestore";
 import dpplaceholder from "../../assets/images/avatar.svg";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import useCollection from "../../Hooks/useCollection";
+import useRoomContext from "../../Hooks/useRoomContext";
 
 const Bubble = ({ each }) => {
 
   const { user } = useAuthContext();
+  const {currentRoom} = useRoomContext();
+  const {DeleteMsg} = useCollection(currentRoom.roomid);
+  const adminUID = "1JIDD2wkCsbeEL2xbWZKHm5Fpg52";
 
   const getTime = ({ minuites }) => {
     let time = new firebase.firestore.Timestamp(
@@ -18,21 +24,25 @@ const Bubble = ({ each }) => {
     return time.getHours().toString();
   };
 
-  let hours = getTime({minuites:false});
-  let mins = getTime({minuites:true});
+  const handleDelete = (mid)=>{
+    DeleteMsg(mid);
+  }
+
+  let hours = getTime({ minuites: false });
+  let mins = getTime({ minuites: true });
 
   const msgVariants = {
-    hide:{
-      y:"100%"
+    hide: {
+      y: "100%"
     },
-    show:{
-      y:0
+    show: {
+      y: 0
     },
-    hoverL:{
-      x:5
+    hoverL: {
+      x: 5
     },
-    hoverR:{
-      x:-5
+    hoverR: {
+      x: -5
     }
   }
 
@@ -47,22 +57,25 @@ const Bubble = ({ each }) => {
         >
           {each.uid !== user.uid && (
             <div className="dp_contain">
-              <img src={each.senderImg?each.senderImg:dpplaceholder} className="chat_msg_dp" />
+              <img src={each.senderImg ? each.senderImg : dpplaceholder} className="chat_msg_dp" />
             </div>
           )}
-          <motion.div className="msg" variants={msgVariants} initial='hide' animate='show' whileHover={each.uid == user.uid?'hoverR':'hoverL'}>
+          {adminUID == user.uid && each.uid == user.uid ? <div className="delmsg_contain" onClick={() => { handleDelete(each.id) }}><p className="delmsg_btn">delete</p></div> : ""}
+          <motion.div className="msg" variants={msgVariants} initial='hide' animate='show' whileHover={each.uid == user.uid ? 'hoverR' : 'hoverL'}>
             {each.uid !== user.uid && (
               <p className="sender_name">{each.displayName}</p>
             )}
             {
-              each.image !== "" && <img src={each.image} style={{borderRadius:"10px",maxWidth:"250px"}}/>
+              each.image !== "" && <img src={each.image} style={{ borderRadius: "10px", maxWidth: "250px" }} />
             }
             <p>{each.text}</p>
             <p className="time">
-              {parseInt(hours) % 12 ==0?"01":parseInt(hours) % 12 }:{parseInt(mins) < 10 ? "0" + mins : mins} {hours>12?"PM":"AM"}
+              {parseInt(hours) % 12 == 0 ? "01" : parseInt(hours) % 12}:{parseInt(mins) < 10 ? "0" + mins : mins} {hours > 12 ? "PM" : "AM"}
             </p>
           </motion.div>
+          {adminUID == user.uid && (each.uid == user.uid ? "" : (<div className="delmsg_contain" onClick={() => { handleDelete(each.id) }}><p className="delmsg_btn">delete</p></div>))}
         </div>
+
       )}
     </>
   );

@@ -49,7 +49,20 @@ const useCollection = (roomid) => {
     }
   };
 
-  return { chats, Send, loading };
+  const DeleteMsg = async (msgid) =>{
+    try{
+      firestore
+      .collection("chats")
+      .doc(msgid)
+      .delete()
+    }
+    catch(e)
+    {
+      console.log(e.message);
+    }
+  }
+
+  return { chats, Send, loading, DeleteMsg };
 };
 
 export default useCollection;

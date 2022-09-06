@@ -57,3 +57,15 @@
     background-color: #613eb6;
     color: white;
 }
+.delmsg_contain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.delmsg_contain .delmsg_btn{
+    color: red;
+    background-color: rgb(255, 185, 185);
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
