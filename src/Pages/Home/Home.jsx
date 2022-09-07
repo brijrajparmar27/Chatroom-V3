@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import Header from "../../Components/Header/Header";
-import LeftPanel from "../../Components/LeftPanel/LeftPanel";
-import RightPanel from "../../Components/RightPanel/RightPanel";
 import useNotifReciever from "../../Hooks/useNotifReciever";
 import { motion } from "framer-motion";
+
+const LeftPanel = React.lazy(() => import("../../Components/LeftPanel/LeftPanel"));
+const RightPanel = React.lazy(() => import("../../Components/RightPanel/RightPanel"));
 
 const Home = () => {
   const { user } = useAuthContext();
@@ -50,10 +51,13 @@ const Home = () => {
       exit='exit'>
 
       <Header user={user} />
-
-      <LeftPanel showChat={showChat} setShowChat={setShowChat} />
-
-      <RightPanel showChat={showChat} setShowChat={setShowChat} />
+    
+      <Suspense fallback={<div></div>}>
+        <LeftPanel showChat={showChat} setShowChat={setShowChat} />
+      </Suspense>
+      <Suspense fallback={<div></div>}>
+        <RightPanel showChat={showChat} setShowChat={setShowChat} />
+      </Suspense>
 
     </motion.div>
   );
