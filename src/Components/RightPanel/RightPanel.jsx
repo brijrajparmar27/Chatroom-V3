@@ -2,16 +2,17 @@ import "./RightPanel.css";
 import { AiOutlinePaperClip, AiOutlineSend } from "react-icons/ai";
 import useRoomContext from "../../Hooks/useRoomContext";
 import useCollection from "../../Hooks/useCollection";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
 import Bubble from "../Bubble/Bubble";
 import useImage from "../../Hooks/useImage";
-import ChatHeader from "./Components/ChatHeader/ChatHeader";
 import { SiGodotengine } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 import "firebase/firestore";
 import { useEffect } from "react";
+
+const ChatHeader = React.lazy(()=>import("./Components/ChatHeader/ChatHeader"));
 
 const RightPanel = ({ setShowChat, showChat }) => {
   const { currentRoom } = useRoomContext();

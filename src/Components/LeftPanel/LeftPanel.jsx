@@ -4,13 +4,14 @@ import useDatabase from "../../Hooks/useDatabase";
 import { useEffect, useState } from "react";
 import useRoomContext from "../../Hooks/useRoomContext";
 import { IoIosAdd } from "react-icons/io";
-import NewRoom from "../NewRoom/NewRoom";
 import useScreenContext from "../../Hooks/useScreenContest";
-import { AnimatePresence, motion } from "framer-motion";
+import React from "react";
+
+const NewRoom = React.lazy(()=>import("../NewRoom/NewRoom"));
 
 const LeftPanel = ({ setShowChat, showChat }) => {
   const [sort, setSort] = useState();
-  const { fetchRooms, RoomsList, loading } = useDatabase({ sort });
+  const { RoomsList, loading } = useDatabase({ sort });
   const [roomData, setRoomData] = useState();
   const { setCurrentRoom, notifications } = useRoomContext();
   const [showAddRoom, setShowAddRoom] = useState(false);
@@ -29,31 +30,7 @@ const LeftPanel = ({ setShowChat, showChat }) => {
 
   useEffect(() => {
     RoomsList && setRoomData([...RoomsList]);
-    // RoomsList && console.log(RoomsList);
   }, [RoomsList])
-
-  // useEffect(()=>{
-  //   // RoomsList && setRooms([...RoomsList.sort((a, b) => b.priority - a.priority)]);
-  //   console.log("sorting");
-  //   RoomsList && console.log([...RoomsList].sort((a, b) => b.priority - a.priority));
-  // },[RoomsList,notifications])
-
-  // useEffect(()=>{
-  //   console.log(Rooms);
-  // },[Rooms])
-
-  // useEffect(() => {
-  //   if (RoomsList && RoomsList.length>0) {
-  //     let dataArray = RoomsList;
-  //     let sorted = [...dataArray.sort((a, b) => b.priority - a.priority)]
-  //     console.log(sorted);
-  //     // setRoomsList()
-  //   }
-  // }, [notifications,RoomsList])
-
-  // // useEffect(()=>{
-  // //   console.log(RoomsList);
-  // // },[RoomsList])
 
   return (
     <div className={showChat ? "left_panel hide" : "left_panel"}>

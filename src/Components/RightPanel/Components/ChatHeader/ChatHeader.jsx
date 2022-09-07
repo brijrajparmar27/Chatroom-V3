@@ -6,8 +6,6 @@ import useCreateRoom from "../../../../Hooks/useCreateRoom";
 import useRoomContext from "../../../../Hooks/useRoomContext";
 import { BiArrowBack } from "react-icons/bi";
 import { AnimatePresence, motion } from "framer-motion";
-import useDatabase from "../../../../Hooks/useDatabase";
-import { useEffect } from "react";
 
 const ChatHeader = ({ setDetailsPopup, setShowChat }) => {
   const [popup, setPopup] = useState(false);
