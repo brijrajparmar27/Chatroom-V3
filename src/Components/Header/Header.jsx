@@ -4,9 +4,8 @@ import avatar from "../../assets/images/avatar.svg";
 import { useRef, useState } from "react";
 import "./Header.css";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
 import useImage from "../../Hooks/useImage";
-import { storage } from "../../Firebase/config";
+import imageCompression from "browser-image-compression";
 
 const Header = ({ user }) => {
   const { logout } = useLogout();
@@ -27,6 +26,12 @@ const Header = ({ user }) => {
     setUrl(url);
   };
 
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 200,
+    useWebWorker: true
+  }
+
   let validImages = ["jpg", "jpeg", "png", "gif"];
 
   const handleImageChange = async (e) => {
@@ -36,17 +41,21 @@ const Header = ({ user }) => {
       let extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
 
       if (validImages.includes(extention)) {
-        setImage(e.target.files[0]);
-        updateProfilePic(
-          true,
-          e.target.files[0],
-          user,
-          "ProfilePictures",
-          user.uid,
-          {
-            onComplete: onUploadComplete,
-          }
-        );
+        imageCompression(e.target.files[0], options)
+          .then((compressed) => {
+            setImage(compressed);
+
+            updateProfilePic(
+              true,
+              compressed,
+              user,
+              "ProfilePictures",
+              user.uid,
+              {
+                onComplete: onUploadComplete,
+              }
+            );
+          })
       }
     }
   };

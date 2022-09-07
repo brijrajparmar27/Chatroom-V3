@@ -6,6 +6,7 @@ import useAuthContext from "../../Hooks/useAuthContext";
 import useCreateRoom from "../../Hooks/useCreateRoom";
 import { storage } from "../../Firebase/config";
 import { AnimatePresence, motion } from "framer-motion";
+import imageCompression from "browser-image-compression";
 
 const NewRoom = ({ setShowAddRoom }) => {
   const { createRoom } = useCreateRoom();
@@ -72,6 +73,12 @@ const NewRoom = ({ setShowAddRoom }) => {
 
   let validImages = ["jpg", "jpeg", "png", "gif"];
 
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 200,
+    useWebWorker: true
+  }
+
   const handleImageChange = async (e) => {
     if (e.target.files[0]) {
 
@@ -80,21 +87,24 @@ const NewRoom = ({ setShowAddRoom }) => {
 
       if (validImages.includes(extention)) {
         setError(false);
-        setImage(e.target.files[0]);
-        updateProfilePic(
-          false,
-          e.target.files[0],
-          user,
-          "RoomImages",
-          generateUniqueName(),
-          {
-            onComplete: onUploadComplete,
-          }
-        );
+        // setImage(e.target.files[0]);
+        imageCompression(e.target.files[0], options)
+          .then((compressed) => {
+            updateProfilePic(
+              false,
+              compressed,
+              user,
+              "RoomImages",
+              generateUniqueName(),
+              {
+                onComplete: onUploadComplete,
+              }
+            );
+          })
 
       }
       else {
-        setError({message:"Invalid Image Format"});
+        setError({ message: "Invalid Image Format" });
       }
     }
   };

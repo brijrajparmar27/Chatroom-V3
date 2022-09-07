@@ -11,8 +11,9 @@ import { IoMdClose } from "react-icons/io";
 import { AnimatePresence, motion } from "framer-motion";
 import "firebase/firestore";
 import { useEffect } from "react";
+import imageCompression from "browser-image-compression";
 
-const ChatHeader = React.lazy(()=>import("./Components/ChatHeader/ChatHeader"));
+const ChatHeader = React.lazy(() => import("./Components/ChatHeader/ChatHeader"));
 
 const RightPanel = ({ setShowChat, showChat }) => {
   const { currentRoom } = useRoomContext();
@@ -29,6 +30,12 @@ const RightPanel = ({ setShowChat, showChat }) => {
 
   let validImages = ["jpg", "jpeg", "png", "gif"];
 
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 720,
+    useWebWorker: true
+  }
+
   const onButtonClick = () => {
     inputFile.current.click();
   };
@@ -44,15 +51,20 @@ const RightPanel = ({ setShowChat, showChat }) => {
       let extention = fileName.substr(fileName.lastIndexOf('.') + 1).toLowerCase();
 
       if (validImages.includes(extention)) {
-        console.log(extention + " is valid");
+        // console.log(extention + " is valid");
         setEnableSend(false);
         let imgname = `${currentRoom.roomid}_${user.uid}_${Math.round(
           Math.random() * 100000
         )}`;
         setTextImg(e.target.files[0]);
-        updateProfilePic(false, e.target.files[0], user, "ChatImages", imgname, {
-          onComplete: onUploadComplete,
-        });
+
+        imageCompression(e.target.files[0], options)
+          .then((compressed) => {
+            updateProfilePic(false, compressed, user, "ChatImages", imgname, {
+              onComplete: onUploadComplete,
+            });
+          })
+
       }
       else {
         setInvalidImg(true);
@@ -147,7 +159,7 @@ const RightPanel = ({ setShowChat, showChat }) => {
               <div className="close_details_page" onClick={() => { setDetailsPopup(false) }}>
                 <IoMdClose />
               </div>
-              <div className="top_avatar_img_contain" style={{backgroundImage:`url(${currentRoom.image})`}}>
+              <div className="top_avatar_img_contain" style={{ backgroundImage: `url(${currentRoom.image})` }}>
                 {/* <img src={currentRoom.image} className="top_avatar" /> */}
               </div>
             </div>
