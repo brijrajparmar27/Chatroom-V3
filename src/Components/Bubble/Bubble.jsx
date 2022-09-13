@@ -4,7 +4,6 @@ import firebase from "firebase";
 import "firebase/firestore";
 import dpplaceholder from "../../assets/images/avatar.svg";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import useCollection from "../../Hooks/useCollection";
 import useRoomContext from "../../Hooks/useRoomContext";
 

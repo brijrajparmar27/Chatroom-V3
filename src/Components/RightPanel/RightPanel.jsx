@@ -4,7 +4,6 @@ import useRoomContext from "../../Hooks/useRoomContext";
 import useCollection from "../../Hooks/useCollection";
 import React, { useRef, useState } from "react";
 import useAuthContext from "../../Hooks/useAuthContext";
-import Bubble from "../Bubble/Bubble";
 import useImage from "../../Hooks/useImage";
 import { SiGodotengine } from "react-icons/si";
 import { IoMdClose } from "react-icons/io";
@@ -14,6 +13,7 @@ import { useEffect } from "react";
 import imageCompression from "browser-image-compression";
 
 const ChatHeader = React.lazy(() => import("./Components/ChatHeader/ChatHeader"));
+const Bubble = React.lazy(() => import("../Bubble/Bubble"));
 
 const RightPanel = ({ setShowChat, showChat }) => {
   const { currentRoom } = useRoomContext();
